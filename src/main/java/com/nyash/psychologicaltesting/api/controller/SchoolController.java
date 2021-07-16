@@ -53,6 +53,6 @@ public class SchoolController {
 
             List<SchoolEntity> schools = schoolRepository.findAllByFilter(isFiltered, filter);
 
-
+            return ResponseEntity.ok(schoolDTOFactory.createSchoolDTOList(schools));
     }
 }
