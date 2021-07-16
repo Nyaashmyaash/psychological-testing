@@ -11,4 +11,10 @@ import lombok.experimental.FieldDefaults;
 public class AckDTO {
 
     Boolean answer;
+
+    public static AckDTO makeDefault(Boolean answer) {
+        return builder()
+                .answer(answer)
+                .build();
+    }
 }
