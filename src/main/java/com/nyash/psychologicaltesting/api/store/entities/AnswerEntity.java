@@ -24,4 +24,15 @@ public class AnswerEntity {
 
     @Column(name = "name", length = 10485760)
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    private QuestionEntity question;
+
+    @Column(name = "question_id", updatable = false, insertable = false)
+    private Long questionId;
+
+    public static AnswerEntity makeDefault() {
+        return builder().build();
+    }
 }
