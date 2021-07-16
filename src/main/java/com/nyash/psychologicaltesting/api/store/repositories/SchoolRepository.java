@@ -15,5 +15,5 @@ public interface SchoolRepository extends JpaRepository<SchoolEntity, Long> {
             "WHERE :isFiltered = FALSE " +
             "OR LOWER(s.name) LIKE LOWER(CONCAT('%',:filter, '%')) " +
             "ORDER BY s.name DESC")
-    List<SchoolEntity> findAllByFilter(boolean, isFiltered, String filter);
+    List<SchoolEntity> findAllByFilter(boolean isFiltered, String filter);
 }

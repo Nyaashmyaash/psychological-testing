@@ -51,6 +51,8 @@ public class SchoolController {
 
             boolean isFiltered = !filter.trim().isEmpty();
 
-            List<SchoolEntity> schools = schoolRepository.
+            List<SchoolEntity> schools = schoolRepository.findAllByFilter(isFiltered, filter);
+
+
     }
 }
