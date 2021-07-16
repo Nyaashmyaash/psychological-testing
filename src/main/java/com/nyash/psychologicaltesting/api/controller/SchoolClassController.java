@@ -2,6 +2,8 @@ package com.nyash.psychologicaltesting.api.controller;
 
 import com.nyash.psychologicaltesting.api.dto.SchoolClassDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
+import com.nyash.psychologicaltesting.api.factory.SchoolClassDTOFactory;
+import com.nyash.psychologicaltesting.api.store.entities.SchoolClassEntity;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.SchoolClassRepository;
 import com.nyash.psychologicaltesting.api.store.repositories.SchoolRepository;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -26,6 +29,8 @@ public class SchoolClassController {
     SchoolClassRepository schoolClassRepository;
 
     SchoolRepository schoolRepository;
+
+    SchoolClassDTOFactory schoolClassDTOFactory;
 
     private static final String FETCH_SCHOOL_CLASSES = "/api/schools/classes";
     private static final String CREATE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{className}";
@@ -45,5 +50,10 @@ public class SchoolClassController {
                 .findById(schoolId)
                 .orElseThrow(()-> new NotFoundException
                         (String.format("A school with id \"%s\", cannot found", schoolId)));
+
+        SchoolClassEntity schoolClass = schoolClassRepository
+                .saveAndFlush(SchoolClassEntity.makeDefault(className.toUpperCase(), school));
+
+        return ResponseEntity.ok(schoolClassDTOFactory.createSchoolClassDTO(schoolClass));
     }
 }
