@@ -1,10 +1,7 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
 import com.nyash.psychologicaltesting.api.domains.UserRole;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -43,5 +40,28 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @NonNull
+    @ManyToOne
+    private SchoolClassEntity schoolClass;
 
+    public static UserEntity makeDefault(
+            String firstName,
+            String middleName,
+            String lastName,
+            String login,
+            String password,
+            Instant birthday,
+            UserRole role,
+            SchoolClassEntity schoolClass) {
+        return builder()
+                .firstName(firstName)
+                .middlename(middleName)
+                .lastName(lastName)
+                .login(login)
+                .password(password)
+                .birthday(birthday)
+                .role(role)
+                .schoolClass(schoolClass)
+                .build();
+    }
 }
