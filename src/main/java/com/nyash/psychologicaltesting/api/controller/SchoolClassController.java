@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolClassDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.SchoolClassDTOFactory;
@@ -13,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +36,7 @@ public class SchoolClassController {
 
     private static final String FETCH_SCHOOL_CLASSES = "/api/schools/classes";
     private static final String CREATE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{className}";
+    private static final String DELETE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{classId}";
 
     @GetMapping(FETCH_SCHOOL_CLASSES)
     public ResponseEntity<List<SchoolClassDTO>> fetchSchoolClasses() {
@@ -55,5 +58,12 @@ public class SchoolClassController {
                 .saveAndFlush(SchoolClassEntity.makeDefault(className.toUpperCase(), school));
 
         return ResponseEntity.ok(schoolClassDTOFactory.createSchoolClassDTO(schoolClass));
+    }
+
+    @DeleteMapping(DELETE_SCHOOL_CLASS)
+    public ResponseEntity<AckDTO> deleteSchoolClass(
+            @PathVariable String classId,
+            @PathVariable String schoolId) {
+
     }
 }
