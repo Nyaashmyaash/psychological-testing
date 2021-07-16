@@ -1,26 +1,24 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "school")
-public class SchoolEntity {
+@Table(name = "school_class")
+public class SchoolClassEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "name")
-    @NonNull
     private String name;
-
-//    List<SchoolClassEntity>
 }
