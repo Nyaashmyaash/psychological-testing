@@ -22,6 +22,6 @@ public class AnswerEntity {
     @Column(name = "answer_order")
     private Integer answerOrder;
 
-    @Column(length = 10485760)
+    @Column(name = "name", length = 10485760)
     private String name;
 }
