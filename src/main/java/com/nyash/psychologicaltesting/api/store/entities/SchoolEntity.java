@@ -4,6 +4,7 @@ package com.nyash.psychologicaltesting.api.store.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,5 +23,14 @@ public class SchoolEntity {
     @NonNull
     private String name;
 
-//    List<SchoolClassEntity>
+    @Builder.Default
+    @OneToMany
+    @JoinColumn(name = "school_id", referencedColumnName = "id")
+    List<SchoolClassEntity> schoolClasses = new ArrayList<>();
+
+    public static SchoolEntity makeDefault(String schoolName) {
+        return builder()
+                .name(schoolName)
+                .build();
+    }
 }
