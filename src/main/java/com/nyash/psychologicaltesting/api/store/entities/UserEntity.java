@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
+import com.nyash.psychologicaltesting.api.domains.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
