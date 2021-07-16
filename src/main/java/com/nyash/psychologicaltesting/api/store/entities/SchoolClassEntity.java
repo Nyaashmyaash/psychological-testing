@@ -21,4 +21,18 @@ public class SchoolClassEntity {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "school_id", referencedColumnName = "id")
+    private SchoolEntity school;
+
+    @Column(name = "school_id", updatable = false, insertable = false)
+    private Long schoolId;
+
+    public static SchoolClassEntity makeDefault(String name, SchoolEntity school) {
+        return builder()
+                .name(name)
+                .school(school)
+                .build();
+    }
 }
