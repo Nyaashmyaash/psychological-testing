@@ -1,4 +1,4 @@
-package com.nyash.psychologicaltesting.dto;
+package com.nyash.psychologicaltesting.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

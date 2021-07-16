@@ -33,6 +33,6 @@ public class SchoolController {
         SchoolEntity school = schoolRepository.saveAndFlush(
                 SchoolEntity.makeDefault(schoolName));
 
-
+        return null;
     }
 }
