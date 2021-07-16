@@ -3,7 +3,6 @@ package com.nyash.psychologicaltesting.api.controller;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
-import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.SchoolRepository;
@@ -27,9 +26,9 @@ public class SchoolController {
 
     SchoolDTOFactory schoolDTOFactory;
 
-    private static final String FETCH_SCHOOL = "/api/school";
-    private static final String CREATE_SCHOOL = "/api/school/{schoolName}";
-    private static final String DELETE_SCHOOL = "/api/school/{schoolId}";
+    private static final String FETCH_SCHOOLS = "/api/schools";
+    private static final String CREATE_SCHOOL = "/api/schools/{schoolName}";
+    private static final String DELETE_SCHOOL = "/api/schools/{schoolId}";
 
 
     @PostMapping(CREATE_SCHOOL)
@@ -46,7 +45,7 @@ public class SchoolController {
         return ResponseEntity.ok(schoolDTOFactory.createSchoolDTO(school));
     }
 
-    @GetMapping(FETCH_SCHOOL)
+    @GetMapping(FETCH_SCHOOLS)
     public ResponseEntity<List<SchoolDTO>> fetchSchools(@RequestParam String filter) {
 
             boolean isFiltered = !filter.trim().isEmpty();
