@@ -1,7 +1,9 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
+import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.SchoolRepository;
@@ -11,10 +13,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,9 +27,10 @@ public class SchoolController {
 
     SchoolDTOFactory schoolDTOFactory;
 
-    private static final String CREATE_SCHOOL = "/api/school/{schoolName}";
-
     private static final String FETCH_SCHOOL = "/api/school";
+    private static final String CREATE_SCHOOL = "/api/school/{schoolName}";
+    private static final String DELETE_SCHOOL = "/api/school/{schoolId}";
+
 
     @PostMapping(CREATE_SCHOOL)
     public ResponseEntity<SchoolDTO> createSchool(@PathVariable String schoolName) {
@@ -54,5 +54,15 @@ public class SchoolController {
             List<SchoolEntity> schools = schoolRepository.findAllByFilter(isFiltered, filter);
 
             return ResponseEntity.ok(schoolDTOFactory.createSchoolDTOList(schools));
+    }
+
+    @DeleteMapping(DELETE_SCHOOL)
+    public ResponseEntity<AckDTO> deleteSchool(@PathVariable Long schoolId) {
+
+        if (schoolRepository.existsById(schoolId)) {
+            throw new NotFoundException(String.format("A school with id \"%s\" does not exist", schoolId));
+        }
+
+
     }
 }
