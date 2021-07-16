@@ -60,10 +60,10 @@ public class SchoolController {
     public ResponseEntity<AckDTO> deleteSchool(@PathVariable Long schoolId) {
 
         if (schoolRepository.existsById(schoolId)) {
-            return AckDTO.builder()
-            throw new NotFoundException(String.format("A school with id \"%s\" does not exist", schoolId));
+            schoolRepository.deleteById(schoolId);
         }
 
+        return ResponseEntity.ok(AckDTO.makeDefault(true));
 
     }
 }
