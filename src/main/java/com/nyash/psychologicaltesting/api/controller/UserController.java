@@ -36,7 +36,7 @@ public class UserController {
 
     public static final String FETCH_USERS = "/api/schools/classes/users";
     public static final String CREATE_USER = "/api/schools/classes/{classId}/users";
-    public static final String DELETE_USER = "/api/users/{userId}";
+    public static final String DELETE_USER = "/api/schools/classes/users/{userId}";
 
 
     @PostMapping(CREATE_USER)
@@ -45,8 +45,15 @@ public class UserController {
             @RequestParam String firstName,
             @RequestParam(defaultValue = "") String middleName,
             @RequestParam String lastName,
-            @RequestParam UserRole role,
+            @RequestParam UserRole userRole,
             @PathVariable Long classId) {
+
+        firstName = firstName.trim();
+        lastName = lastName.trim();
+        middleName = middleName.trim().isEmpty() ? null : middleName;
+
+        String login = makeLogin(firstName,lastName);
+        String password = makePassword();
 
         SchoolClassEntity schoolClass = schoolClassRepository
                 .findById(classId)
@@ -54,8 +61,19 @@ public class UserController {
                         new NotFoundException(String.format("Class with id \"%s\" cannot found", classId)));
 
         UserEntity user = userRepository.saveAndFlush(
-                UserEntity.makeDefault()
-        )
+                UserEntity.makeDefault(
+                        firstName,
+                        middleName,
+                        lastName,
+                        login,
+                        password,
+                        birthday,
+                        userRole,
+                        schoolClass
+                )
+        );
+
+        return ResponseEntity.ok(userDTOFactory.createUserDTO(user));
     }
 
     @GetMapping(FETCH_USERS)
