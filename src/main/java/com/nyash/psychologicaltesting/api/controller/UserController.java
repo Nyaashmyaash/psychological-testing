@@ -6,6 +6,7 @@ import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
+import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolClassEntity;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
 import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
@@ -27,6 +28,8 @@ import java.util.List;
 @Controller
 @Transactional
 public class UserController {
+
+    UserDTOFactory userDTOFactory;
 
     UserRepository userRepository;
 
@@ -94,6 +97,14 @@ public class UserController {
         }
 
         return ResponseEntity.ok(AckDTO.makeDefault(true));
+
+    }
+
+    private String makeLogin(){
+        String
+    }
+
+    private String makePassword() {
 
     }
 }
