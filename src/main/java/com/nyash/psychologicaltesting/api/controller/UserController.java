@@ -4,8 +4,12 @@ import com.nyash.psychologicaltesting.api.domains.UserRole;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
+import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
+import com.nyash.psychologicaltesting.api.store.entities.SchoolClassEntity;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
+import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
+import com.nyash.psychologicaltesting.api.store.repositories.SchoolClassRepository;
 import com.nyash.psychologicaltesting.api.store.repositories.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +30,8 @@ public class UserController {
 
     UserRepository userRepository;
 
+    SchoolClassRepository schoolClassRepository;
+
     SchoolDTOFactory schoolDTOFactory;
 
     public static final String FETCH_USERS = "/api/schools/classes/users";
@@ -42,7 +48,14 @@ public class UserController {
             @RequestParam UserRole role,
             @PathVariable Long classId) {
 
+        SchoolClassEntity schoolClass = schoolClassRepository
+                .findById(classId)
+                .orElseThrow(() ->
+                        new NotFoundException(String.format("Class with id \"%s\" cannot found", classId)));
 
+        UserEntity user = userRepository.saveAndFlush(
+                UserEntity.makeDefault()
+        )
     }
 
     @GetMapping(FETCH_USERS)
