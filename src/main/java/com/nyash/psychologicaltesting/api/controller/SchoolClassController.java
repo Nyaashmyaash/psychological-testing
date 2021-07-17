@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -38,9 +40,19 @@ public class SchoolClassController {
     private static final String DELETE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{classId}";
 
     @GetMapping(FETCH_SCHOOL_CLASSES)
-    public ResponseEntity<List<SchoolClassDTO>> fetchSchoolClasses() {
+    public ResponseEntity<List<SchoolClassDTO>> fetchSchoolClasses(
+            @PathVariable Long schoolId,
+            @PathVariable String prefix) {
 
-        return ResponseEntity.ok(null);
+        SchoolEntity school = getSchoolOrThrowNotFound(schoolId);
+
+        List<SchoolClassEntity> schoolClasses = school
+                .getSchoolClasses()
+                .stream()
+                .filter(it -> it.getName().toLowerCase().startsWith(prefix.toLowerCase()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(schoolClassDTOFactory.createSchoolClassDTOList(schoolClasses));
     }
 
     @PostMapping(CREATE_SCHOOL_CLASS)
