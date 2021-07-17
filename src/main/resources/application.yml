@@ -10,7 +10,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/psycho-testing-db
+    url: jdbc:postgresql://localhost:5432/psycho_testing_db
     username: postgres
     password: test
   jpa:
