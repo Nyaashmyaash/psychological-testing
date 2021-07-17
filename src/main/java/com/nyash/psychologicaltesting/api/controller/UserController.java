@@ -5,7 +5,7 @@ import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
-import com.nyash.psychologicaltesting.api.store.repositories.SchoolRepository;
+import com.nyash.psychologicaltesting.api.store.repositories.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,7 +22,7 @@ import java.util.List;
 @Transactional
 public class UserController {
 
-    SchoolRepository schoolRepository;
+    UserRepository userRepository;
 
     SchoolDTOFactory schoolDTOFactory;
 
@@ -32,7 +32,7 @@ public class UserController {
 
 
     @PostMapping(CREATE_USER)
-    public ResponseEntity<SchoolDTO> createSchool(@PathVariable String schoolName) {
+    public ResponseEntity<SchoolDTO> createUser(@PathVariable String schoolName) {
 
         if (schoolRepository.existsByName(schoolName)) {
             throw new BadRequestException
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping(FETCH_USERS)
-    public ResponseEntity<List<SchoolDTO>> fetchSchools(@RequestParam String filter) {
+    public ResponseEntity<List<SchoolDTO>> fetchUsers(@RequestParam String filter) {
 
             boolean isFiltered = !filter.trim().isEmpty();
 
@@ -56,10 +56,10 @@ public class UserController {
     }
 
     @DeleteMapping(DELETE_USER)
-    public ResponseEntity<AckDTO> deleteSchool(@PathVariable Long schoolId) {
+    public ResponseEntity<AckDTO> deleteUser(@PathVariable Long userId) {
 
-        if (schoolRepository.existsById(schoolId)) {
-            schoolRepository.deleteById(schoolId);
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
         }
 
         return ResponseEntity.ok(AckDTO.makeDefault(true));
