@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -34,7 +35,7 @@ public class SchoolClassController {
 
     SchoolClassDTOFactory schoolClassDTOFactory;
 
-    private static final String FETCH_SCHOOL_CLASSES = "/api/schools/classes";
+    private static final String FETCH_SCHOOL_CLASSES = "/api/schools/{schoolId}/classes";
     private static final String CREATE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{className}";
     private static final String DELETE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{classId}";
 
@@ -46,13 +47,10 @@ public class SchoolClassController {
 
     @PostMapping(CREATE_SCHOOL_CLASS)
     public ResponseEntity<SchoolClassDTO> createSchoolClass(
-            @PathVariable String className,
-            @PathVariable Long schoolId) {
+            @PathVariable Long schoolId,
+            @PathVariable String className) {
 
-        SchoolEntity school = schoolRepository
-                .findById(schoolId)
-                .orElseThrow(()-> new NotFoundException
-                        (String.format("A school with id \"%s\", cannot found", schoolId)));
+        SchoolEntity school = getSchoolOrThrowNotFound(schoolId);
 
         SchoolClassEntity schoolClass = schoolClassRepository
                 .saveAndFlush(SchoolClassEntity.makeDefault(className.toUpperCase(), school));
@@ -62,8 +60,18 @@ public class SchoolClassController {
 
     @DeleteMapping(DELETE_SCHOOL_CLASS)
     public ResponseEntity<AckDTO> deleteSchoolClass(
-            @PathVariable String classId,
-            @PathVariable String schoolId) {
+            @PathVariable Long schoolId,
+            @PathVariable Long classId) {
 
+        schoolClassRepository.deleteByIdAndSchoolId(classId, schoolId);
+
+        return ResponseEntity.ok(AckDTO.makeDefault(true));
+    }
+
+    private SchoolEntity getSchoolOrThrowNotFound(Long schoolId) {
+        return schoolRepository
+                .findById(schoolId)
+                .orElseThrow(()-> new NotFoundException
+                        (String.format("A school with id \"%s\", cannot found", schoolId)));
     }
 }

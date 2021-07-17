@@ -1,9 +1,6 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -19,6 +16,7 @@ public class SchoolClassEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NonNull
     @Column(name = "name")
     private String name;
 
