@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.domains.UserRole;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,23 +28,21 @@ public class UserController {
 
     SchoolDTOFactory schoolDTOFactory;
 
-    public static final String FETCH_USERS = "/api/users";
-    public static final String CREATE_USER = "/api/users/{userName}";
+    public static final String FETCH_USERS = "/api/schools/classes/users";
+    public static final String CREATE_USER = "/api/schools/classes/{classId}/users";
     public static final String DELETE_USER = "/api/users/{userId}";
 
 
     @PostMapping(CREATE_USER)
-    public ResponseEntity<SchoolDTO> createUser(@PathVariable String schoolName) {
+    public ResponseEntity<SchoolDTO> createUser(
+            @RequestParam Instant birthday,
+            @RequestParam String firstName,
+            @RequestParam(defaultValue = "") String middleName,
+            @RequestParam String lastName,
+            @RequestParam UserRole role,
+            @PathVariable Long classId) {
 
-        if (schoolRepository.existsByName(schoolName)) {
-            throw new BadRequestException
-                    (String.format("A school with name \"%s\" already exists", schoolName));
-        }
 
-        SchoolEntity school = schoolRepository.saveAndFlush(
-                SchoolEntity.makeDefault(schoolName));
-
-        return ResponseEntity.ok(schoolDTOFactory.createSchoolDTO(school));
     }
 
     @GetMapping(FETCH_USERS)
