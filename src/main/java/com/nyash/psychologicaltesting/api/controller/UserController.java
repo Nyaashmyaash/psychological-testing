@@ -26,9 +26,9 @@ public class UserController {
 
     SchoolDTOFactory schoolDTOFactory;
 
-    private static final String FETCH_USERS = "/api/users";
-    private static final String CREATE_USER = "/api/users/{userName}";
-    private static final String DELETE_USER = "/api/users/{userId}";
+    public static final String FETCH_USERS = "/api/users";
+    public static final String CREATE_USER = "/api/users/{userName}";
+    public static final String DELETE_USER = "/api/users/{userId}";
 
 
     @PostMapping(CREATE_USER)

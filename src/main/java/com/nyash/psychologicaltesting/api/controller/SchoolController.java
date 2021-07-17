@@ -26,9 +26,9 @@ public class SchoolController {
 
     SchoolDTOFactory schoolDTOFactory;
 
-    private static final String FETCH_SCHOOLS = "/api/schools";
-    private static final String CREATE_SCHOOL = "/api/schools/{schoolName}";
-    private static final String DELETE_SCHOOL = "/api/schools/{schoolId}";
+    public static final String FETCH_SCHOOLS = "/api/schools";
+    public static final String CREATE_SCHOOL = "/api/schools/{schoolName}";
+    public static final String DELETE_SCHOOL = "/api/schools/{schoolId}";
 
 
     @PostMapping(CREATE_SCHOOL)

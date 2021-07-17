@@ -35,9 +35,9 @@ public class SchoolClassController {
 
     SchoolClassDTOFactory schoolClassDTOFactory;
 
-    private static final String FETCH_SCHOOL_CLASSES = "/api/schools/{schoolId}/classes";
-    private static final String CREATE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{className}";
-    private static final String DELETE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{classId}";
+    public static final String FETCH_SCHOOL_CLASSES = "/api/schools/{schoolId}/classes";
+    public static final String CREATE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{className}";
+    public static final String DELETE_SCHOOL_CLASS = "/api/schools/{schoolId}/classes/{classId}";
 
     @GetMapping(FETCH_SCHOOL_CLASSES)
     public ResponseEntity<List<SchoolClassDTO>> fetchSchoolClasses(
