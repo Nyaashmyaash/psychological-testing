@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.List;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Controller
 @Transactional
-public class UserController {
+public class TestController {
 
     UserDTOFactory userDTOFactory;
 
