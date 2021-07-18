@@ -3,6 +3,7 @@ package com.nyash.psychologicaltesting.api.controller;
 import com.nyash.psychologicaltesting.api.domains.UserRole;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
+import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
@@ -34,8 +35,6 @@ public class UserController {
     UserRepository userRepository;
 
     SchoolClassRepository schoolClassRepository;
-
-    SchoolDTOFactory schoolDTOFactory;
 
     public static final String FETCH_USERS = "/api/schools/classes/users";
     public static final String CREATE_USER = "/api/schools/classes/{classId}/users";
@@ -76,17 +75,17 @@ public class UserController {
                 )
         );
 
-        return ResponseEntity.ok(userDTOFactory.createUserDTO(user));
+        return ResponseEntity.ok(userDTOFactory.createUserDTO(user))
     }
 
     @GetMapping(FETCH_USERS)
-    public ResponseEntity<List<SchoolDTO>> fetchUsers(@RequestParam String filter) {
+    public ResponseEntity<List<UserDTO>> fetchUsers(@RequestParam String filter) {
 
             boolean isFiltered = !filter.trim().isEmpty();
 
-            List<SchoolEntity> schools = schoolRepository.findAllByFilter(isFiltered, filter);
+            List<UserEntity> users = userRepository.findAllByFilter(isFiltered, filter);
 
-            return ResponseEntity.ok(schoolDTOFactory.createSchoolDTOList(schools));
+            return ResponseEntity.ok(UserDTOFactory.createUserDTOList(users));
     }
 
     @DeleteMapping(DELETE_USER)
