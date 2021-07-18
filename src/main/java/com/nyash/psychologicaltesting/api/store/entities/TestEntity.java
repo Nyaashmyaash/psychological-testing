@@ -1,9 +1,7 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,20 +11,21 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "test")
 public class TestEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(length = 10485760)
-    private String name;
+    String name;
 
     @Builder.Default
     @Column(name = "is_started")
-    private Boolean isStarted = false;
+    Boolean isStarted = false;
 
     @Builder.Default
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

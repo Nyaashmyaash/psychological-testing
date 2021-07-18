@@ -46,6 +46,8 @@ public class TestController {
                     .orElseThrow(() ->
                             new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
                     );
+        } else {
+            test = TestEntity.makeDefault();
         }
 
         Optional.ofNullable(testId)
