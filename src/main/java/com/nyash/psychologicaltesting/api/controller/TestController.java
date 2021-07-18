@@ -74,12 +74,11 @@ public class TestController {
                             )
                     );
 
-            test.s
+            test.setPsychologist(psychologist);
         }
 
+        test = testRepository.saveAndFlush(test);
 
-        Optional.ofNullable(testId)
-                .map(testRepository::findById)
-                .or
+        return
     }
 }
