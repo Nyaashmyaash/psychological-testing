@@ -1,7 +1,10 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
+import com.nyash.psychologicaltesting.api.store.entities.PsychologistEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
+import com.nyash.psychologicaltesting.api.store.repositories.PsychologistRepository;
 import com.nyash.psychologicaltesting.api.store.repositories.TestRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,8 @@ public class TestController {
 
     TestRepository testRepository;
 
+    PsychologistRepository psychologistRepository;
+
     public static final String FETCH_TESTS = "/api/tests";
     public static final String CREATE_OR_UPDATE_TEST = "/api/tests";
     public static final String DELETE_TEST = "/api/tests/{testId}";
@@ -35,8 +40,8 @@ public class TestController {
     @PostMapping(CREATE_OR_UPDATE_TEST)
     public ResponseEntity<?> createOrUpdateTest(
             @RequestParam(required = false) Long testId,
-            @RequestParam(required = false) Long psychologistId,
-            @RequestParam(required = false) String testName) {
+            @RequestParam(required = false) Optional<Long> psychologistId,
+            @RequestParam(required = false) Optional<String> testName) {
 
         TestEntity test;
 
@@ -46,9 +51,32 @@ public class TestController {
                     .orElseThrow(() ->
                             new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
                     );
+            testName.ifPresent(test::setName);
+
         } else {
             test = TestEntity.makeDefault();
+
+            if (!testName.isPresent()) {
+                throw new BadRequestException("Имя теста не может быть пустым.");
+            }
+
+            if (!psychologistId.isPresent()) {
+                throw new BadRequestException("Идентификатор психолога не может быть пустым!")
+            }
+
+            test.setName(test.getName());
+
+            PsychologistEntity psychologist = psychologistRepository
+                    .findById(psychologistId.get())
+                    .orElseThrow(() ->
+                            new NotFoundException(
+                                    String.format("Психолог с идентификатором \"%s\" не найден", psychologistId.get())
+                            )
+                    );
+
+            test.s
         }
+
 
         Optional.ofNullable(testId)
                 .map(testRepository::findById)
