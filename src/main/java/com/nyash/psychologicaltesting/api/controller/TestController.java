@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.dto.TestDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
@@ -13,9 +14,12 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -30,17 +34,20 @@ public class TestController {
 
     TestDTOFactory testDTOFactory;
 
-    public static final String FETCH_TESTS = "/api/tests";
+    public static final String FETCH_TESTS = "/api/psychologists/{psychologistId}/tests";
     public static final String CREATE_OR_UPDATE_TEST = "/api/tests";
     public static final String DELETE_TEST = "/api/tests/{testId}";
 
-//    @GetMapping(FETCH_TESTS)
-//    public ResponseEntity<?> fetchTests() {
-//
-//    }
+    @GetMapping(FETCH_TESTS)
+    public ResponseEntity<List<TestDTO>> fetchTests(
+            @PathVariable String psychologistId,
+
+            ) {
+
+    }
 
     @PostMapping(CREATE_OR_UPDATE_TEST)
-    public ResponseEntity<?> createOrUpdateTest(
+    public ResponseEntity<TestDTO> createOrUpdateTest(
             @RequestParam(required = false) Long testId,
             @RequestParam(required = false) Optional<Long> psychologistId,
             @RequestParam(required = false) Optional<String> testName) {
