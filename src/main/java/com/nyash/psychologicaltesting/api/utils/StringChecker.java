@@ -7,7 +7,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class StringChecker {
 
-    public void checkOnEmpty(@NonNull String value,
+    public void checkOnEmpty (@NonNull String value,
                              @NonNull String fieldName) {
 
         if(value.trim().isEmpty()) {

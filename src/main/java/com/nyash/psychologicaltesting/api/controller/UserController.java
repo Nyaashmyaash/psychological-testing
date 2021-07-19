@@ -42,13 +42,15 @@ public class UserController {
 
 
     @PostMapping(CREATE_USER)
-    public ResponseEntity<SchoolDTO> createUser(
+    public ResponseEntity<UserDTO> createUser(
             @RequestParam Instant birthday,
             @RequestParam String firstName,
             @RequestParam(defaultValue = "") String middleName,
             @RequestParam String lastName,
             @RequestParam UserRole userRole,
             @PathVariable Long classId) {
+
+        firstName
 
 
         firstName = firstName.trim();
