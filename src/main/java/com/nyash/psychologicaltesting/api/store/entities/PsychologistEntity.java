@@ -1,9 +1,7 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
@@ -11,23 +9,28 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "psychologist")
 public class PsychologistEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
+    @NonNull
     @Column(name = "first_name")
-    private String firstName;
+    String firstName;
 
+    @NonNull
     @Column(name = "last_name")
-    private String lastName;
+    String lastName;
 
+    @NonNull
     @Column(name = "login")
-    private String login;
+    String login;
 
+    @NonNull
     @Column(name = "password")
-    private String password;
+    String password;
 }

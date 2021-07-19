@@ -1,9 +1,7 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
@@ -11,26 +9,27 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "answer")
 public class AnswerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "answer_order")
-    private Integer answerOrder;
+    Integer answerOrder;
 
     @Column(name = "name", length = 10485760)
-    private String name;
+    String name;
 
     @ManyToOne
     @JoinColumn(name = "question_id", referencedColumnName = "id")
-    private QuestionEntity question;
+    QuestionEntity question;
 
     @Column(name = "question_id", updatable = false, insertable = false)
-    private Long questionId;
+    Long questionId;
 
     public static AnswerEntity makeDefault() {
         return builder().build();
