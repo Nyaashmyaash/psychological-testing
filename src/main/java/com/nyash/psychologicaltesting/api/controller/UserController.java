@@ -44,6 +44,8 @@ public class UserController {
 
     private static final Transliterator toLatinTrans = Transliterator.getInstance(CYRILLIC_TO_LATIN);
 
+    private static final int PASSWORD_LENGTH = 10;
+
 
     @PostMapping(CREATE_USER)
     public ResponseEntity<UserDTO> createUser(
@@ -62,7 +64,7 @@ public class UserController {
 
         middleName = middleName.trim().isEmpty() ? null : middleName;
 
-        String login = makeLogin();
+        String login = makeLogin(firstName, lastName);
         String password = makePassword();
 
         SchoolClassEntity schoolClass = schoolClassRepository
@@ -87,7 +89,7 @@ public class UserController {
     }
 
     @GetMapping(FETCH_USERS)
-    public ResponseEntity<List<UserDTO>> fetchUsers(@RequestParam String filter) {
+    public ResponseEntity<List<UserDTO>> fetchUsers(@RequestParam(defaultValue = "") String filter) {
 
         boolean isFiltered = !filter.trim().isEmpty();
 
@@ -117,7 +119,7 @@ public class UserController {
     }
 
     private String makePassword() {
-
+        return UUID.randomUUID().toString().replace("-", "").substring(0, PASSWORD_LENGTH);
     }
 
 }

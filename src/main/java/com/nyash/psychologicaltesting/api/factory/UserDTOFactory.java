@@ -18,6 +18,7 @@ public class UserDTOFactory {
                 .lastName(entity.getLastName())
                 .login(entity.getLogin())
                 .password(entity.getPassword())
+                .birthday(entity.getBirthday())
                 .role(entity.getRole())
                 .schoolClassId(entity.getSchoolClass().getId())
                 .build();
