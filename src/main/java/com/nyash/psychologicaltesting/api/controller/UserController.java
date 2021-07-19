@@ -10,8 +10,10 @@ import com.nyash.psychologicaltesting.api.store.entities.SchoolClassEntity;
 import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.SchoolClassRepository;
 import com.nyash.psychologicaltesting.api.store.repositories.UserRepository;
+import com.nyash.psychologicaltesting.api.utils.StringChecker;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.ExtensionMethod;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.util.*;
 
+@ExtensionMethod(StringChecker.class)
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Controller
