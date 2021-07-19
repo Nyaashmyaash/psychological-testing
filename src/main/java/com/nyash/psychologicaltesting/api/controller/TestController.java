@@ -12,7 +12,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,11 +45,13 @@ public class TestController {
         TestEntity test;
 
         if (testId != null) {
+
             test = testRepository
                     .findById(testId)
                     .orElseThrow(() ->
                             new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
                     );
+
             testName.ifPresent(test::setName);
 
         } else {
