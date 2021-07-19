@@ -37,8 +37,10 @@ public class UserController {
     SchoolClassRepository schoolClassRepository;
 
     public static final String FETCH_USERS = "/api/schools/classes/users";
+    public static final String FETCH_USERS_BY_CLASS = "/api/schools/classes/{classId}/users";
     public static final String CREATE_USER = "/api/schools/classes/{classId}/users";
     public static final String DELETE_USER = "/api/schools/classes/users/{userId}";
+    public static final String GET_USER_ID_BY_LOGIN_AND_PASSWORD = "/api/schools/classes/users/id";
 
     private static final String CYRILLIC_TO_LATIN = "Russian-Latin/BGN";
 
@@ -94,6 +96,18 @@ public class UserController {
         boolean isFiltered = !filter.trim().isEmpty();
 
         List<UserEntity> users = userRepository.findAllByFilter(isFiltered, filter);
+
+        return ResponseEntity.ok(userDTOFactory.createUserDTOList(users));
+    }
+
+    @GetMapping(FETCH_USERS_BY_CLASS)
+    public ResponseEntity<List<UserDTO>> fetchUsersByClass (
+            @RequestParam(defaultValue = "") String filter,
+            @PathVariable Long classId) {
+
+        boolean isFiltered = !filter.trim().isEmpty();
+
+        List<UserEntity> users = userRepository.findAllByFilterAndClass(isFiltered, filter, classId);
 
         return ResponseEntity.ok(userDTOFactory.createUserDTOList(users));
     }
