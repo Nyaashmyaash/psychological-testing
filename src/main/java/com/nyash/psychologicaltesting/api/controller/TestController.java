@@ -39,11 +39,13 @@ public class TestController {
     public static final String DELETE_TEST = "/api/tests/{testId}";
 
     @GetMapping(FETCH_TESTS)
-    public ResponseEntity<List<TestDTO>> fetchTests(
-            @PathVariable Long psychologistId,
-            @RequestParam String filter
-            ) {
+    public ResponseEntity<List<TestDTO>> fetchTests(@RequestParam(defaultValue = "") String filter) {
 
+        boolean isFiltered = !filter.trim().isEmpty();
+
+        List<TestEntity> tests = testRepository.findAllByFilter(isFiltered, filter);
+
+        return ResponseEntity.ok(testDTOFactory.createTestDTOList(tests));
     }
 
     @PostMapping(CREATE_OR_UPDATE_TEST)
