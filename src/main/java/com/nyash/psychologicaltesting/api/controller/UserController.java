@@ -95,7 +95,7 @@ public class UserController {
 
         List<UserEntity> users = userRepository.findAllByFilter(isFiltered, filter);
 
-        return ResponseEntity.ok(UserDTOFactory.createUserDTOList(users));
+        return ResponseEntity.ok(userDTOFactory.createUserDTOList(users));
     }
 
     @DeleteMapping(DELETE_USER)
