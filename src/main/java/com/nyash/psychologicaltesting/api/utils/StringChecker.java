@@ -11,7 +11,7 @@ public class StringChecker {
                              @NonNull String fieldName) {
 
         if(value.trim().isEmpty()) {
-            throw new BadRequestException(String.format("Поле с названием \"%s\" не может быть пустым."));
+            throw new BadRequestException(String.format("Поле с названием \"%s\" не может быть пустым.", fieldName));
         }
     }
 }

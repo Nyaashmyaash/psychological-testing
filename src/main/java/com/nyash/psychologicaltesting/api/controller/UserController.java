@@ -50,8 +50,12 @@ public class UserController {
             @RequestParam UserRole userRole,
             @PathVariable Long classId) {
 
+
         firstName = firstName.trim();
         lastName = lastName.trim();
+
+
+
         middleName = middleName.trim().isEmpty() ? null : middleName;
 
         String login = makeLogin(firstName,lastName);
