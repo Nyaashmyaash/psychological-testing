@@ -14,4 +14,14 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             "OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :filter, '%')))" +
             "ORDER BY u.lastName, u.firstName")
     List<UserEntity> findAllByFilter(boolean isFiltered, String filter);
+
+
+    @Query("SELECT u FROM UserEntity u " +
+            "WHERE u.schoolClass.id =:classId " +
+            "AND (:isFiltered = FALSE " +
+            "OR LOWER(u.firstName) LIKE LOWER(CONCAT('%', :filter, '%'))" +
+            "OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :filter, '%'))" +
+            ") " +
+            "ORDER BY u.lastName, u.firstName")
+    List<UserEntity> findAllByFilterAndClass(boolean isFiltered, String filter, Long classId);
 }
