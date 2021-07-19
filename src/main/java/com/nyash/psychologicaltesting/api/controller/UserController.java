@@ -2,7 +2,6 @@ package com.nyash.psychologicaltesting.api.controller;
 
 import com.nyash.psychologicaltesting.api.domains.UserRole;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
-import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
@@ -23,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.util.*;
 
-@ExtensionMethod(StringChecker.class)
 @RequiredArgsConstructor
+@ExtensionMethod(StringChecker.class)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Controller
 @Transactional
@@ -50,17 +49,15 @@ public class UserController {
             @RequestParam UserRole userRole,
             @PathVariable Long classId) {
 
-        firstName
-
-
         firstName = firstName.trim();
         lastName = lastName.trim();
 
-
+        firstName.checkOnEmpty("firstName");
+        lastName.checkOnEmpty("lastName");
 
         middleName = middleName.trim().isEmpty() ? null : middleName;
 
-        String login = makeLogin(firstName,lastName);
+        String login = makeLogin();
         String password = makePassword();
 
         SchoolClassEntity schoolClass = schoolClassRepository
@@ -81,17 +78,17 @@ public class UserController {
                 )
         );
 
-        return ResponseEntity.ok(userDTOFactory.createUserDTO(user))
+        return ResponseEntity.ok(userDTOFactory.createUserDTO(user));
     }
 
     @GetMapping(FETCH_USERS)
     public ResponseEntity<List<UserDTO>> fetchUsers(@RequestParam String filter) {
 
-            boolean isFiltered = !filter.trim().isEmpty();
+        boolean isFiltered = !filter.trim().isEmpty();
 
-            List<UserEntity> users = userRepository.findAllByFilter(isFiltered, filter);
+        List<UserEntity> users = userRepository.findAllByFilter(isFiltered, filter);
 
-            return ResponseEntity.ok(UserDTOFactory.createUserDTOList(users));
+        return ResponseEntity.ok(UserDTOFactory.createUserDTOList(users));
     }
 
     @DeleteMapping(DELETE_USER)
@@ -105,12 +102,14 @@ public class UserController {
 
     }
 
-    private String makeLogin(){
-
-    }
-
-    private String makePassword() {
-
-    }
+//    private String makeLogin(){
+//
+//    }
+//
+//    private String makePassword() {
+//
+//    }
 
 }
+
+
