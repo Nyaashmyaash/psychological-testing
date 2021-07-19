@@ -40,8 +40,8 @@ public class TestController {
 
     @GetMapping(FETCH_TESTS)
     public ResponseEntity<List<TestDTO>> fetchTests(
-            @PathVariable String psychologistId,
-
+            @PathVariable Long psychologistId,
+            @RequestParam String filter
             ) {
 
     }
