@@ -1,6 +1,7 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -9,31 +10,32 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "test_user")
 public class TestUserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @NonNull
     @ManyToOne
-    private UserEntity user;
+    UserEntity user;
 
     @NonNull
     @ManyToOne
-    private TestEntity test;
+    TestEntity test;
 
     @Column(length = 10485760)
     @NonNull
-    private String answers;
+    String answers;
 
     @Builder.Default
     @NonNull
     @Column(name = "create_at")
-    private Instant createdAt = Instant.now();
+    Instant createdAt = Instant.now();
 
     @Column(name = "psychologist_id", insertable = false, updatable = false)
-    private Long psychologistId;
+    Long psychologistId;
 }

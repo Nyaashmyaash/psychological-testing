@@ -2,6 +2,7 @@ package com.nyash.psychologicaltesting.api.store.entities;
 
 import com.nyash.psychologicaltesting.api.domains.UserRole;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -10,39 +11,43 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "user")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    @Column(name = "birthday")
-    private Instant birthday;
-
+    @NonNull
     @Column(name = "first_name")
-    private String firstName;
+    String firstName;
 
+    @NonNull
     @Column(name = "last_name")
-    private String lastName;
+    String lastName;
 
     @Column(name = "middle_name")
-    private String middlename;
+    String middleName;
+
+    @NonNull
+    @Column(name = "birthday")
+    Instant birthday;
 
     @Column(name = "login")
-    private String login;
+    String login;
 
     @Column(name = "password")
-    private String password;
+    String password;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    UserRole role;
 
     @NonNull
     @ManyToOne
-    private SchoolClassEntity schoolClass;
+    SchoolClassEntity schoolClass;
 
     public static UserEntity makeDefault(
             String firstName,
@@ -55,7 +60,7 @@ public class UserEntity {
             SchoolClassEntity schoolClass) {
         return builder()
                 .firstName(firstName)
-                .middlename(middleName)
+                .middleName(middleName)
                 .lastName(lastName)
                 .login(login)
                 .password(password)

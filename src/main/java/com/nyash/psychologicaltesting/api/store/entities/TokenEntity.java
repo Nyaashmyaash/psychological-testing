@@ -1,9 +1,7 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -13,6 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "token")
 public class TokenEntity {
@@ -21,11 +20,11 @@ public class TokenEntity {
 
     @Id
     @Builder.Default
-    private String token = UUID.randomUUID().toString();
+    String token = UUID.randomUUID().toString();
 
     @Builder.Default
-    private Instant expiredAt = Instant.now().plusSeconds(EXPIRED_SECONDS);
+    Instant expiredAt = Instant.now().plusSeconds(EXPIRED_SECONDS);
 
     @Builder.Default
-    private Instant createdAt = Instant.now();
+    Instant createdAt = Instant.now();
 }

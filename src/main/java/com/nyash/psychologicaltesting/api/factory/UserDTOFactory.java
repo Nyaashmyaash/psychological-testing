@@ -14,7 +14,7 @@ public class UserDTOFactory {
         return UserDTO.builder()
                 .id(entity.getId())
                 .firstName(entity.getFirstName())
-                .middleName(entity.getMiddlename())
+                .middleName(entity.getMiddleName())
                 .lastName(entity.getLastName())
                 .login(entity.getLogin())
                 .password(entity.getPassword())
