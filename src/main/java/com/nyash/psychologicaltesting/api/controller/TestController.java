@@ -2,6 +2,7 @@ package com.nyash.psychologicaltesting.api.controller;
 
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
+import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.PsychologistEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.PsychologistRepository;
@@ -26,6 +27,8 @@ public class TestController {
     TestRepository testRepository;
 
     PsychologistRepository psychologistRepository;
+
+    TestDTOFactory testDTOFactory;
 
     public static final String FETCH_TESTS = "/api/tests";
     public static final String CREATE_OR_UPDATE_TEST = "/api/tests";
@@ -80,6 +83,6 @@ public class TestController {
 
         test = testRepository.saveAndFlush(test);
 
-        return
+        return ResponseEntity.ok(testDTOFactory.createTestDTO(test));
     }
 }
