@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.ibm.icu.text.Transliterator;
 import com.nyash.psychologicaltesting.api.domains.UserRole;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
@@ -38,6 +39,10 @@ public class UserController {
     public static final String FETCH_USERS = "/api/schools/classes/users";
     public static final String CREATE_USER = "/api/schools/classes/{classId}/users";
     public static final String DELETE_USER = "/api/schools/classes/users/{userId}";
+
+    private static final String CYRILLIC_TO_LATIN = "Russian-Latin/BGN";
+
+    private static final Transliterator toLatinTrans = Transliterator.getInstance(CYRILLIC_TO_LATIN);
 
 
     @PostMapping(CREATE_USER)
@@ -102,13 +107,18 @@ public class UserController {
 
     }
 
-//    private String makeLogin(){
-//
-//    }
-//
-//    private String makePassword() {
-//
-//    }
+    private String makeLogin(String firstName, String lastName){
+
+        String firstNameTransliterated = toLatinTrans.transliterate(firstName.toLowerCase());
+
+        String lastNameTransliterated = toLatinTrans.transliterate(lastName.toLowerCase());
+
+        return String.format("%s.%s", firstNameTransliterated.charAt(0), lastNameTransliterated);
+    }
+
+    private String makePassword() {
+
+    }
 
 }
 
