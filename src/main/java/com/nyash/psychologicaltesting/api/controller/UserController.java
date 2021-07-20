@@ -133,7 +133,7 @@ public class UserController {
     }
 
     private String makePassword() {
-        return UUID.randomUUID().toString().replace("-", "").substring(0, PASSWORD_LENGTH);
+        return UUID.randomUUID().toString().replaceAll("-", "").substring(0, PASSWORD_LENGTH);
     }
 
 }
