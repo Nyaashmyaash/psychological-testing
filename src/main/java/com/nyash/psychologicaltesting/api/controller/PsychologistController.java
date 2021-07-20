@@ -1,8 +1,5 @@
 package com.nyash.psychologicaltesting.api.controller;
 
-import com.nyash.psychologicaltesting.api.dto.AckDTO;
-import com.nyash.psychologicaltesting.api.dto.PsychologistDTO;
-import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestUserDTOFactory;
@@ -38,16 +35,11 @@ public class PsychologistController {
 
     SchoolClassRepository schoolClassRepository;
 
-
-
-
-
     public static final String GET_TEST_RESULTS = "/api/psychologists/tests/{testId}/results";
     public static final String GET_USERS_BY_CLASS = "/api/psychologists/schools/classes/{classId}";
     public static final String GENERATE_LINK_FOR_TEST = "/api/psychologists/schools/classes/{classId}/tests/{testId}/generate-link";
 
     public static final String LINK_TEMPLATE = "/api/psychologists";
-
 
     @GetMapping(GET_TEST_RESULTS)
     public ResponseEntity<List<?>> getTestResults() {
