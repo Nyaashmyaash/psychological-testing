@@ -3,6 +3,7 @@ package com.nyash.psychologicaltesting.api.controller;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.PsychologistDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
+import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestUserDTOFactory;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
@@ -59,8 +60,16 @@ public class PsychologistController {
     }
 
     @DeleteMapping(GET_USERS_BY_CLASS)
-    public ResponseEntity<AckDTO> getUsersByClass(@PathVariable Long psychologistId) {
+    public ResponseEntity<List<UserDTO>> getUsersByClass(
+            @PathVariable Long classId) {
 
+        checkClassById(classId);
+
+        List<UserDTO> users = userDTOFactory.createUserDTOList(
+                userRepository.findAllByFilterAndClass(false, "", classId)
+        );
+
+        return ResponseEntity.ok(users);
     }
 
     private void checkClassById (Long classId) {
