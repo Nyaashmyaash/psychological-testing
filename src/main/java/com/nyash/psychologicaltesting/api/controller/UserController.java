@@ -123,6 +123,15 @@ public class UserController {
 
     }
 
+    @GetMapping(GET_USER_ID_BY_LOGIN_AND_PASSWORD)
+    public ResponseEntity<Long> getUserIdByLoginAndPassword(
+            @RequestParam String login,
+            @RequestParam String password
+    ) {
+
+    }
+
+
     private String makeLogin(String firstName, String lastName){
 
         String firstNameTransliterated = toLatinTrans.transliterate(firstName.toLowerCase());
