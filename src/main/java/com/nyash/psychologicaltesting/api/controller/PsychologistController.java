@@ -3,6 +3,7 @@ package com.nyash.psychologicaltesting.api.controller;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.PsychologistDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
+import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestUserDTOFactory;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
@@ -40,24 +41,33 @@ public class PsychologistController {
 
 
 
-    public static final String FETCH_PSYCHOLOGISTS = "/api/psychologists";
-    public static final String CREATE_PSYCHOLOGIST = "/api/psychologists";
-    public static final String DELETE_PSYCHOLOGIST = "/api/psychologists";
+    public static final String GET_TEST_RESULTS = "/api/psychologists/tests/{testId}/results";
+    public static final String GET_USERS_BY_CLASS = "/api/psychologists/schools/classes/{classId}";
+    public static final String GENERATE_LINK_FOR_TEST = "/api/psychologists/schools/classes/{classId}/tests/{testId}/generate-link";
+
+    public static final String LINK_TEMPLATE = "/api/psychologists";
 
 
-    @PostMapping(CREATE_PSYCHOLOGIST)
-    public ResponseEntity<SchoolDTO> createPsychologist() {
-
-    }
-
-    @GetMapping(FETCH_PSYCHOLOGISTS)
-    public ResponseEntity<List<PsychologistDTO>> fetchPsychologists(@RequestParam String filter) {
+    @GetMapping(GET_TEST_RESULTS)
+    public ResponseEntity<List<?>> getTestResults() {
 
     }
 
-    @DeleteMapping(DELETE_PSYCHOLOGIST)
-    public ResponseEntity<AckDTO> deletePsychologist(@PathVariable Long psychologistId) {
+    @GetMapping(GENERATE_LINK_FOR_TEST)
+    public ResponseEntity<List<PsychologistDTO>> generateLinkForTest(@RequestParam String filter) {
 
+    }
+
+    @DeleteMapping(GET_USERS_BY_CLASS)
+    public ResponseEntity<AckDTO> getUsersByClass(@PathVariable Long psychologistId) {
+
+    }
+
+    private void checkClassById (Long classId) {
+        schoolClassRepository
+                .findById(classId)
+                .orElseThrow(() ->
+                        new NotFoundException(String.format("Класс с идентификатором \"%s\" не найден.", classId)));
     }
 }
 
