@@ -1,9 +1,8 @@
 package com.nyash.psychologicaltesting.api.factory;
 
-import com.nyash.psychologicaltesting.api.dto.AnswerDTO;
-import com.nyash.psychologicaltesting.api.dto.LiteTestDTO;
-import com.nyash.psychologicaltesting.api.dto.TestDTO;
-import com.nyash.psychologicaltesting.api.dto.UserDTO;
+import com.nyash.psychologicaltesting.api.dto.*;
+import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
+import com.nyash.psychologicaltesting.api.store.entities.QuestionEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
 import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
 import org.springframework.stereotype.Component;
@@ -36,6 +35,31 @@ public class TestDTOFactory {
                 .collect(Collectors.toList());
     }
 
-    public List<AnswerDTO>
+    public QuestionDTO createQuestionDTO(QuestionEntity entity) {
+        return QuestionDTO.builder()
+                .id(entity.getId())
+                .order(entity.getQuestionOrder())
+                .answers(entity.getAnswers())
+                .text()
+    }
 
+    public List<QuestionEntity> createQuestionDTOList(List<QuestionEntity> entities) {
+
+    }
+
+    public AnswerDTO createAnswerDTO(AnswerEntity entity) {
+        return AnswerDTO.builder()
+                .id(entity.getId())
+                .order(entity.getAnswerOrder())
+                .name(entity.getName())
+                .build();
+    }
+
+    public List<AnswerDTO> createAnswerDTOList(List<AnswerEntity> entities) {
+        return entities
+                .stream()
+                .map(this::createAnswerDTO)
+                .distinct()
+                .collect(Collectors.toList());
+    }
 }
