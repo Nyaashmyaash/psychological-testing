@@ -126,9 +126,13 @@ public class UserController {
     @GetMapping(GET_USER_ID_BY_LOGIN_AND_PASSWORD)
     public ResponseEntity<Long> getUserIdByLoginAndPassword(
             @RequestParam String login,
-            @RequestParam String password
-    ) {
+            @RequestParam String password) {
 
+        UserEntity user = userRepository
+                .findTopByLoginAndPassword(login, password)
+                .orElseThrow(() -> new NotFoundException("Пользователь с таким паролем не существует."));
+
+        return ResponseEntity.ok(user.getId());
     }
 
 
