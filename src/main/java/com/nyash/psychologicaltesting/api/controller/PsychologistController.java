@@ -3,10 +3,9 @@ package com.nyash.psychologicaltesting.api.controller;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.PsychologistDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
+import com.nyash.psychologicaltesting.api.factory.TestUserDTOFactory;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
-import com.nyash.psychologicaltesting.api.store.repositories.PsychologistRepository;
-import com.nyash.psychologicaltesting.api.store.repositories.SchoolClassRepository;
-import com.nyash.psychologicaltesting.api.store.repositories.UserRepository;
+import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,33 +21,43 @@ import java.util.List;
 @Controller
 @Transactional
 public class PsychologistController {
-//
-//    PsychologistRepository psychologistRepository;
-//
-//    UserDTOFactory userDTOFactory;
-//
-//    UserRepository userRepository;
-//
-//    SchoolClassRepository schoolClassRepository;
 
-//    public static final String FETCH_PSYCHOLOGISTS = "/api/psychologists";
-//    public static final String CREATE_PSYCHOLOGIST = "/api/psychologists";
-//    public static final String DELETE_PSYCHOLOGIST = "/api/psychologists";
+    PsychologistRepository psychologistRepository;
+
+    UserDTOFactory userDTOFactory;
+
+    TestUserDTOFactory testUserDTOFactory;
+
+    UserRepository userRepository;
+
+    TestRepository testRepository;
+
+    TestUserRepository testUserRepository;
+
+    SchoolClassRepository schoolClassRepository;
 
 
-//    @PostMapping(CREATE_PSYCHOLOGIST)
-//    public ResponseEntity<SchoolDTO> createPsychologist() {
-//
-//    }
-//
-//    @GetMapping(FETCH_PSYCHOLOGISTS)
-//    public ResponseEntity<List<PsychologistDTO>> fetchPsychologists(@RequestParam String filter) {
-//
-//    }
-//
-//    @DeleteMapping(DELETE_PSYCHOLOGIST)
-//    public ResponseEntity<AckDTO> deletePsychologist(@PathVariable Long psychologistId) {
-//
-//    }
+
+
+
+    public static final String FETCH_PSYCHOLOGISTS = "/api/psychologists";
+    public static final String CREATE_PSYCHOLOGIST = "/api/psychologists";
+    public static final String DELETE_PSYCHOLOGIST = "/api/psychologists";
+
+
+    @PostMapping(CREATE_PSYCHOLOGIST)
+    public ResponseEntity<SchoolDTO> createPsychologist() {
+
+    }
+
+    @GetMapping(FETCH_PSYCHOLOGISTS)
+    public ResponseEntity<List<PsychologistDTO>> fetchPsychologists(@RequestParam String filter) {
+
+    }
+
+    @DeleteMapping(DELETE_PSYCHOLOGIST)
+    public ResponseEntity<AckDTO> deletePsychologist(@PathVariable Long psychologistId) {
+
+    }
 }
 

@@ -47,50 +47,50 @@ public class TestController {
         return ResponseEntity.ok(testDTOFactory.createTestDTOList(tests));
     }
 
-//    @PostMapping(CREATE_OR_UPDATE_TEST)
-//    public ResponseEntity<TestDTO> createOrUpdateTest(
-//            @RequestParam(required = false) Long testId,
-//            @RequestParam(required = false) Optional<Long> psychologistId,
-//            @RequestParam(required = false) Optional<String> testName) {
-//
-//        TestEntity test;
-//
-//        if (testId != null) {
-//
-//            test = testRepository
-//                    .findById(testId)
-//                    .orElseThrow(() ->
-//                            new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
-//                    );
-//
-//            testName.ifPresent(test::setName);
-//
-//        } else {
-//            test = TestEntity.makeDefault();
-//
-//            if (!testName.isPresent()) {
-//                throw new BadRequestException("Имя теста не может быть пустым.");
-//            }
-//
-//            if (!psychologistId.isPresent()) {
-//                throw new BadRequestException("Идентификатор психолога не может быть пустым!");
-//            }
-//
-//            test.setName(test.getName());
-//
-//            PsychologistEntity psychologist = psychologistRepository
-//                    .findById(psychologistId.get())
-//                    .orElseThrow(() ->
-//                            new NotFoundException(
-//                                    String.format("Психолог с идентификатором \"%s\" не найден", psychologistId.get())
-//                            )
-//                    );
-//
-//            test.setPsychologist(psychologist);
-//        }
-//
-//        test = testRepository.saveAndFlush(test);
-//
-//        return ResponseEntity.ok(testDTOFactory.createTestDTO(test));
-//    }
+    @PostMapping(CREATE_OR_UPDATE_TEST)
+    public ResponseEntity<TestDTO> createOrUpdateTest(
+            @RequestParam(required = false) Long testId,
+            @RequestParam(required = false) Optional<Long> psychologistId,
+            @RequestParam(required = false) Optional<String> testName) {
+
+        TestEntity test;
+
+        if (testId != null) {
+
+            test = testRepository
+                    .findById(testId)
+                    .orElseThrow(() ->
+                            new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
+                    );
+
+            testName.ifPresent(test::setName);
+
+        } else {
+            test = TestEntity.makeDefault();
+
+            if (!testName.isPresent()) {
+                throw new BadRequestException("Имя теста не может быть пустым.");
+            }
+
+            if (!psychologistId.isPresent()) {
+                throw new BadRequestException("Идентификатор психолога не может быть пустым!");
+            }
+
+            test.setName(test.getName());
+
+            PsychologistEntity psychologist = psychologistRepository
+                    .findById(psychologistId.get())
+                    .orElseThrow(() ->
+                            new NotFoundException(
+                                    String.format("Психолог с идентификатором \"%s\" не найден", psychologistId.get())
+                            )
+                    );
+
+            test.setPsychologist(psychologist);
+        }
+
+        test = testRepository.saveAndFlush(test);
+
+        return ResponseEntity.ok(testDTOFactory.createTestDTO(test));
+    }
 }
