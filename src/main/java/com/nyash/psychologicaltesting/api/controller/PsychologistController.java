@@ -1,9 +1,11 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.dto.TestUserDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestUserDTOFactory;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
+import com.nyash.psychologicaltesting.api.store.entities.TestUserEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +44,12 @@ public class PsychologistController {
     public static final String LINK_TEMPLATE = "/api/psychologists";
 
     @GetMapping(GET_TEST_RESULTS)
-    public ResponseEntity<List<?>> getTestResults() {
+    public ResponseEntity<List<TestUserDTO>> getTestResults(
+            @PathVariable Long testId) {
 
+        checkTestById(testId);
+
+        List<TestUserEntity> testUserList = testUserRepository
     }
 
     @GetMapping(GENERATE_LINK_FOR_TEST)
