@@ -36,7 +36,7 @@ public class SchoolController {
 
         if (schoolRepository.existsByName(schoolName)) {
             throw new BadRequestException
-                    (String.format("A school with name \"%s\" already exists", schoolName));
+                    (String.format("Школа с названием \"%s\" уже существует", schoolName));
         }
 
         SchoolEntity school = schoolRepository.saveAndFlush(

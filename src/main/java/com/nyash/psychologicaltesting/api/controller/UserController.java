@@ -72,7 +72,7 @@ public class UserController {
         SchoolClassEntity schoolClass = schoolClassRepository
                 .findById(classId)
                 .orElseThrow(() ->
-                        new NotFoundException(String.format("Class with id \"%s\" cannot found", classId)));
+                        new NotFoundException(String.format("Класс с идентификатором \"%s\" не найден", classId)));
 
         UserEntity user = userRepository.saveAndFlush(
                 UserEntity.makeDefault(

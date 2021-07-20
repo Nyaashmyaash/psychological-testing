@@ -82,6 +82,6 @@ public class SchoolClassController {
         return schoolRepository
                 .findById(schoolId)
                 .orElseThrow(()-> new NotFoundException
-                        (String.format("A school with id \"%s\", cannot found", schoolId)));
+                        (String.format("Школа с идентификатором \"%s\", не найдена", schoolId)));
     }
 }
