@@ -55,8 +55,15 @@ public class PsychologistController {
     }
 
     @GetMapping(GENERATE_LINK_FOR_TEST)
-    public ResponseEntity<List<PsychologistDTO>> generateLinkForTest(@RequestParam String filter) {
+    public ResponseEntity<String> generateLinkForTest(
+            @PathVariable Long classId,
+            @PathVariable Long testId) {
 
+        checkClassById(classId);
+
+        checkTestById(testId);
+
+        return ResponseEntity.ok(String.format(LINK_TEMPLATE, testId, classId));
     }
 
     @DeleteMapping(GET_USERS_BY_CLASS)
