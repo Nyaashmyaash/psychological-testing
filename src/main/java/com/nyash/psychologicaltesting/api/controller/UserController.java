@@ -130,7 +130,7 @@ public class UserController {
 
         UserEntity user = userRepository
                 .findTopByLoginAndPassword(login, password)
-                .orElseThrow(() -> new NotFoundException("Пользователь с таким паролем не существует."));
+                .orElseThrow(() -> new NotFoundException("Пользователь с таким логином и паролем не существует."));
 
         return ResponseEntity.ok(user.getId());
     }
