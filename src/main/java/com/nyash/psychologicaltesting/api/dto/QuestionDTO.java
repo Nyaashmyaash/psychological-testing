@@ -3,16 +3,20 @@ package com.nyash.psychologicaltesting.api.dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AnswerDTO {
+public class QuestionDTO {
 
     Long id;
 
     Integer order;
 
-    String name;
+    String text;
+
+    List<AnswerDTO> answers;
 }

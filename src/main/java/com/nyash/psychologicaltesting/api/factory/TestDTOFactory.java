@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.factory;
 
+import com.nyash.psychologicaltesting.api.dto.AnswerDTO;
 import com.nyash.psychologicaltesting.api.dto.LiteTestDTO;
 import com.nyash.psychologicaltesting.api.dto.TestDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
@@ -35,6 +36,6 @@ public class TestDTOFactory {
                 .collect(Collectors.toList());
     }
 
-    public List
+    public List<AnswerDTO>
 
 }
