@@ -49,7 +49,9 @@ public class PsychologistController {
 
         checkTestById(testId);
 
-        List<TestUserEntity> testUserList = testUserRepository
+        List<TestUserEntity> testUserList = testUserRepository.findAllByTestIdAndPsychologistId(testId);
+
+        return ResponseEntity.ok(testUserDTOFactory.createTestUserDTOList(testUserList));
     }
 
     @GetMapping(GENERATE_LINK_FOR_TEST)
