@@ -69,5 +69,12 @@ public class PsychologistController {
                 .orElseThrow(() ->
                         new NotFoundException(String.format("Класс с идентификатором \"%s\" не найден.", classId)));
     }
+
+    private void checkTestById(Long testId) {
+        testRepository
+                .findById(testId)
+                .orElseThrow(() ->
+                        new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId)));
+    }
 }
 
