@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -19,12 +20,14 @@ public class TestUserDTOFactory {
     UserDTOFactory userDTOFactory;
 
     public List<TestUserDTO> createTestUserDTOList(List<TestUserEntity> entities) {
-
-        return entities.stream().map()
+        return entities.stream().map(this::createTestUserDTO).collect(Collectors.toList());
     }
 
     public TestUserDTO createTestUserDTO(TestUserEntity entity) {
         return TestUserDTO.builder()
-                .test()
+                .test(testDTOFactory.createLiteTestDTO(entity.getTest()))
+                .user(userDTOFactory.createUserDTO(entity.getUser()))
+                .answers(entity.getAnswers())
+                .build();
     }
 }
