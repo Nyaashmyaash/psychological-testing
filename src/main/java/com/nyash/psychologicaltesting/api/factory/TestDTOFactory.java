@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.factory;
 
+import com.nyash.psychologicaltesting.api.dto.LiteTestDTO;
 import com.nyash.psychologicaltesting.api.dto.TestDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
@@ -11,6 +12,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class TestDTOFactory {
+
+    public LiteTestDTO createLiteTestDTO(TestEntity entity) {
+        return LiteTestDTO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
+    }
 
     public TestDTO createTestDTO(TestEntity entity) {
         return TestDTO.builder()
@@ -26,5 +34,7 @@ public class TestDTOFactory {
                 .map(this::createTestDTO)
                 .collect(Collectors.toList());
     }
+
+    public List
 
 }
