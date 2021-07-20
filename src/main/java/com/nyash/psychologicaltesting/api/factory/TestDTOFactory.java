@@ -32,26 +32,32 @@ public class TestDTOFactory {
         return entities
                 .stream()
                 .map(this::createTestDTO)
+                .distinct()
                 .collect(Collectors.toList());
     }
 
     public QuestionDTO createQuestionDTO(QuestionEntity entity) {
         return QuestionDTO.builder()
                 .id(entity.getId())
+                .text(entity.getText())
                 .order(entity.getQuestionOrder())
-                .answers(entity.getAnswers())
-                .text()
+                .answers(createAnswerDTOList(entity.getAnswers()))
+                .build();
     }
 
-    public List<QuestionEntity> createQuestionDTOList(List<QuestionEntity> entities) {
-
+    public List<QuestionDTO> createQuestionDTOList(List<QuestionEntity> entities) {
+        return entities
+                .stream()
+                .map(this::createQuestionDTO)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public AnswerDTO createAnswerDTO(AnswerEntity entity) {
         return AnswerDTO.builder()
                 .id(entity.getId())
-                .order(entity.getAnswerOrder())
                 .name(entity.getName())
+                .order(entity.getAnswerOrder())
                 .build();
     }
 
