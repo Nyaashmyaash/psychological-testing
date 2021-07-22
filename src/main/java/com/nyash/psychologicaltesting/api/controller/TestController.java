@@ -6,8 +6,7 @@ import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.PsychologistEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
-import com.nyash.psychologicaltesting.api.store.repositories.PsychologistRepository;
-import com.nyash.psychologicaltesting.api.store.repositories.TestRepository;
+import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -29,6 +28,12 @@ import java.util.Optional;
 public class TestController {
 
     TestRepository testRepository;
+
+    UserRepository userRepository;
+
+    TestUserRepository testUserRepository;
+
+    SchoolClassRepository schoolClassRepository;
 
     PsychologistRepository psychologistRepository;
 
