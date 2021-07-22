@@ -33,7 +33,8 @@ public class TestController {
 
     TestDTOFactory testDTOFactory;
 
-    public static final String FETCH_TESTS = "/api/psychologists/{psychologistId}/tests";
+    public static final String FETCH_TESTS = "/api/tests";
+    public static final String GET_TEST = "/api/tests/{testId}";
     public static final String CREATE_OR_UPDATE_TEST = "/api/tests";
     public static final String DELETE_TEST = "/api/tests/{testId}";
     public static final String COMPLETE_TEST = "/api/schools/classes/{classId}/users/{userId}/tests/{testId}/psychologists/{psychologistId}/compete";
