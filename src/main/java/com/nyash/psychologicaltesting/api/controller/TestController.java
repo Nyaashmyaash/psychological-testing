@@ -13,10 +13,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,48 +66,16 @@ public class TestController {
 
     @PostMapping(CREATE_OR_UPDATE_TEST)
     public ResponseEntity<TestDTO> createOrUpdateTest(
-            @RequestParam(required = false) Long testId,
-            @RequestParam(required = false) Optional<Long> psychologistId,
-            @RequestParam(required = false) Optional<String> testName) {
+            @RequestBody TestDTO test) {
 
-        TestEntity test;
+        TestEntity testEntity =
+    }
 
-        if (testId != null) {
-
-            test = testRepository
-                    .findById(testId)
-                    .orElseThrow(() ->
-                            new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
-                    );
-
-            testName.ifPresent(test::setName);
-
-        } else {
-            test = TestEntity.makeDefault();
-
-            if (!testName.isPresent()) {
-                throw new BadRequestException("Имя теста не может быть пустым.");
-            }
-
-            if (!psychologistId.isPresent()) {
-                throw new BadRequestException("Идентификатор психолога не может быть пустым!");
-            }
-
-            test.setName(test.getName());
-
-            PsychologistEntity psychologist = psychologistRepository
-                    .findById(psychologistId.get())
-                    .orElseThrow(() ->
-                            new NotFoundException(
-                                    String.format("Психолог с идентификатором \"%s\" не найден", psychologistId.get())
-                            )
-                    );
-
-            test.setPsychologist(psychologist);
-        }
-
-        test = testRepository.saveAndFlush(test);
-
-        return ResponseEntity.ok(testDTOFactory.createTestDTO(test));
+    private TestEntity getTestOrThrowNotFound(Long testId) {
+        return testRepository
+                .findById(testId)
+                .orElseThrow(() ->
+                        new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
+                );
     }
 }
