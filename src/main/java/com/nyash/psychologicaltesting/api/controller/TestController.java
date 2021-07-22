@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.AnswerDTO;
 import com.nyash.psychologicaltesting.api.dto.QuestionDTO;
 import com.nyash.psychologicaltesting.api.dto.TestDTO;
@@ -75,6 +76,23 @@ public class TestController {
         testEntity = testRepository.saveAndFlush(testEntity);
 
         return ResponseEntity.ok(testDTOFactory.createTestDTO(testEntity));
+    }
+
+    @DeleteMapping(DELETE_TEST)
+    public ResponseEntity<AckDTO> deleteTest(
+            @PathVariable Long testId) {
+        TestEntity test = testRepository
+                .findById(testId)
+                .orElse(null);
+
+        if (test != null) {
+            test.getQuestions().forEach(it -> it.getAnswers().clear());
+            test.getQuestions().clear();
+
+            testRepository.delete(test);
+        }
+
+        return ResponseEntity.ok(AckDTO.makeDefault(true));
     }
 
     private TestEntity getTestOrThrowNotFound(Long testId) {
