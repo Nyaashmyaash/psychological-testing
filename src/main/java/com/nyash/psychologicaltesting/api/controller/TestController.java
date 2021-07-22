@@ -1,12 +1,14 @@
 package com.nyash.psychologicaltesting.api.controller;
 
 import com.nyash.psychologicaltesting.api.dto.AnswerDTO;
+import com.nyash.psychologicaltesting.api.dto.QuestionDTO;
 import com.nyash.psychologicaltesting.api.dto.TestDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
 import com.nyash.psychologicaltesting.api.store.entities.PsychologistEntity;
+import com.nyash.psychologicaltesting.api.store.entities.QuestionEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
@@ -103,11 +105,30 @@ public class TestController {
         test.getQuestions().addAll(
                 dto.getQuestions()
                 .stream()
+                .map()
+                .collect(Collectors.toList())
+        );
+
+        return test;
+    }
+
+    private QuestionEntity convertQuestionToEntity (QuestionDTO dto) {
+
+        QuestionEntity question = QuestionEntity.makeDefault();
+
+        question.setId(dto.getId());
+        question.setQuestionOrder(dto.getOrder());
+        question.setText(dto.getText());
+        question.getAnswers().clear();
+
+        question.getAnswers().addAll(
+                dto.getAnswers()
+                .stream()
                 .map(this::convertAnswerToEntity)
                 .collect(Collectors.toList())
         );
 
-        return que
+        return question;
     }
 
     private AnswerEntity convertAnswerToEntity(AnswerDTO dto) {
