@@ -105,7 +105,7 @@ public class TestController {
         test.getQuestions().addAll(
                 dto.getQuestions()
                 .stream()
-                .map()
+                .map(this::convertQuestionToEntity)
                 .collect(Collectors.toList())
         );
 
