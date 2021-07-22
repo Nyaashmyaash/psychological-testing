@@ -7,10 +7,7 @@ import com.nyash.psychologicaltesting.api.dto.TestDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
-import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
-import com.nyash.psychologicaltesting.api.store.entities.QuestionEntity;
-import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
-import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
+import com.nyash.psychologicaltesting.api.store.entities.*;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -127,6 +124,16 @@ public class TestController {
                 .orElseThrow(() ->
                         new NotFoundException(String.format("Пользователь с идентификатором \"%s\" не найден.", userId))
                 );
+
+        testUserRepository.saveAndFlush(
+                TestUserEntity.builder()
+                .answers(answers)
+                .user(user)
+                .test(test)
+                .build()
+        );
+
+        return ResponseEntity.ok(AckDTO.makeDefault(true));
     }
 
     private TestEntity getTestOrThrowNotFound(Long testId) {
