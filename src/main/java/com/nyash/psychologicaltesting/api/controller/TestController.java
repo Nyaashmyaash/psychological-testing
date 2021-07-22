@@ -73,7 +73,11 @@ public class TestController {
     public ResponseEntity<TestDTO> createOrUpdateTest(
             @RequestBody TestDTO test) {
 
-        TestEntity testEntity =
+        TestEntity testEntity = convertTestToEntity(test);
+
+        testEntity = testRepository.saveAllAndFlush(testEntity);
+
+        return ResponseEntity.ok(testDTOFactory.createTestDTO(testEntity));
     }
 
     private TestEntity getTestOrThrowNotFound(Long testId) {
