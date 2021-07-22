@@ -3,11 +3,9 @@ package com.nyash.psychologicaltesting.api.controller;
 import com.nyash.psychologicaltesting.api.dto.AnswerDTO;
 import com.nyash.psychologicaltesting.api.dto.QuestionDTO;
 import com.nyash.psychologicaltesting.api.dto.TestDTO;
-import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
-import com.nyash.psychologicaltesting.api.store.entities.PsychologistEntity;
 import com.nyash.psychologicaltesting.api.store.entities.QuestionEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -75,7 +72,7 @@ public class TestController {
 
         TestEntity testEntity = convertTestToEntity(test);
 
-        testEntity = testRepository.saveAllAndFlush(testEntity);
+        testEntity = testRepository.saveAndFlush(testEntity);
 
         return ResponseEntity.ok(testDTOFactory.createTestDTO(testEntity));
     }
