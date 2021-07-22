@@ -4,11 +4,13 @@ import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.AnswerDTO;
 import com.nyash.psychologicaltesting.api.dto.QuestionDTO;
 import com.nyash.psychologicaltesting.api.dto.TestDTO;
+import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
 import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
 import com.nyash.psychologicaltesting.api.store.entities.QuestionEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
+import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -109,6 +111,22 @@ public class TestController {
         List<String> answerList = Arrays.stream(answers.split(","))
                 .filter(it -> !it.trim().isEmpty())
                 .collect(Collectors.toList());
+
+        if (answerList.size() != test.getQuestions().size()) {
+            throw new BadRequestException("Вы ответили не на все вопросы.");
+        }
+
+        schoolClassRepository
+                .findById(classId)
+                .orElseThrow(() ->
+                        new NotFoundException(String.format("Класс с идентификатором \"%s\" не найден.", classId))
+                );
+
+        UserEntity user = userRepository
+                .findByIdAndSchoolClassId(userId, classId)
+                .orElseThrow(() ->
+                        new NotFoundException(String.format("Пользователь с идентификатором \"%s\" не найден.", userId))
+                );
     }
 
     private TestEntity getTestOrThrowNotFound(Long testId) {
