@@ -18,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,6 +95,20 @@ public class TestController {
         }
 
         return ResponseEntity.ok(AckDTO.makeDefault(true));
+    }
+
+    @PostMapping(COMPLETE_TEST)
+    public ResponseEntity<AckDTO> completeTest(
+            @PathVariable Long classId,
+            @PathVariable Long userId,
+            @PathVariable Long testId,
+            @RequestParam String answers) {
+
+        TestEntity test = getTestOrThrowNotFound(testId);
+
+        List<String> answerList = Arrays.stream(answers.split(","))
+                .filter(it -> !it.trim().isEmpty())
+                .collect(Collectors.toList());
     }
 
     private TestEntity getTestOrThrowNotFound(Long testId) {
