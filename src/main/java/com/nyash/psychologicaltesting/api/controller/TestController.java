@@ -78,4 +78,27 @@ public class TestController {
                         new NotFoundException(String.format("Тест с идентификатором \"%s\" не найден.", testId))
                 );
     }
+
+    private TestEntity convertTestToEntity(TestDTO dto) {
+
+        Long testId = dto.getId();
+
+        TestEntity test;
+        if(testId == null) {
+            test = TestEntity.makeDefault();
+        } else {
+            test = testRepository
+                    .findById(testId)
+                    .orElseThrow(() ->
+                            new NotFoundException(String.format("Тест с индентификатором \"%s\" не найден.", testId))
+                    );
+        }
+
+        test.setName(dto.getName());
+        test.getQuestions().clear();
+
+        test.getQuestions().addAll(
+                dto.get
+        )
+    }
 }
