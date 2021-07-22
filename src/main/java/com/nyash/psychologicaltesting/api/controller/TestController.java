@@ -1,9 +1,11 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.dto.AnswerDTO;
 import com.nyash.psychologicaltesting.api.dto.TestDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
+import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
 import com.nyash.psychologicaltesting.api.store.entities.PsychologistEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -98,7 +101,23 @@ public class TestController {
         test.getQuestions().clear();
 
         test.getQuestions().addAll(
-                dto.get
-        )
+                dto.getQuestions()
+                .stream()
+                .map(this::convertAnswerToEntity)
+                .collect(Collectors.toList())
+        );
+
+        return que
+    }
+
+    private AnswerEntity convertAnswerToEntity(AnswerDTO dto) {
+
+        AnswerEntity answer = AnswerEntity.makeDefault();
+
+        answer.setId(dto.getId());
+        answer.setName(dto.getName());
+        answer.setAnswerOrder(dto.getOrder());
+
+        return answer;
     }
 }
