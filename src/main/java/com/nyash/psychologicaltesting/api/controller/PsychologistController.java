@@ -23,8 +23,6 @@ import java.util.List;
 @Transactional
 public class PsychologistController {
 
-    PsychologistRepository psychologistRepository;
-
     UserDTOFactory userDTOFactory;
 
     TestUserDTOFactory testUserDTOFactory;
