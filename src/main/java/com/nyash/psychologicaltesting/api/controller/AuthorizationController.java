@@ -1,5 +1,7 @@
 package com.nyash.psychologicaltesting.api.controller;
 
+import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
+import com.nyash.psychologicaltesting.api.store.entities.TokenEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.PsychologistRepository;
 import com.nyash.psychologicaltesting.api.store.repositories.TokenRepository;
 import lombok.AccessLevel;
@@ -30,6 +32,11 @@ public class AuthorizationController {
             @RequestParam String password) {
 
         psychologistRepository
-                .findTop
+                .findTopByLoginAndPassword(login, password)
+                .orElseThrow(() -> new NotFoundException("Пользователь с таким логином и паролем не найден."));
+
+        TokenEntity tokenEntity = tokenRepository.saveAndFlush(TokenEntity.builder().build());
+
+        return ResponseEntity.ok(tokenEntity.getToken());
     }
 }
