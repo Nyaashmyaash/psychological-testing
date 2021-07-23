@@ -4,7 +4,6 @@ import com.nyash.psychologicaltesting.api.dto.*;
 import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
 import com.nyash.psychologicaltesting.api.store.entities.QuestionEntity;
 import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
-import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class TestDTOFactory {
         return TestDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .isStarted(entity.getIsStarted())
+                .questions(createQuestionDTOList(entity.getQuestions()))
                 .build();
     }
 
