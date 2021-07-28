@@ -4,6 +4,7 @@ import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
+import com.nyash.psychologicaltesting.api.service.ControllerAuthenticationService;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.SchoolRepository;
 import lombok.AccessLevel;
@@ -26,13 +27,19 @@ public class SchoolController {
 
     SchoolDTOFactory schoolDTOFactory;
 
+    ControllerAuthenticationService authenticationService;
+
     public static final String FETCH_SCHOOLS = "/api/schools";
     public static final String CREATE_SCHOOL = "/api/schools/{schoolName}";
     public static final String DELETE_SCHOOL = "/api/schools/{schoolId}";
 
 
     @PostMapping(CREATE_SCHOOL)
-    public ResponseEntity<SchoolDTO> createSchool(@PathVariable String schoolName) {
+    public ResponseEntity<SchoolDTO> createSchool(
+            @PathVariable String schoolName,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
 
         if (schoolRepository.existsByName(schoolName)) {
             throw new BadRequestException
@@ -56,7 +63,11 @@ public class SchoolController {
     }
 
     @DeleteMapping(DELETE_SCHOOL)
-    public ResponseEntity<AckDTO> deleteSchool(@PathVariable Long schoolId) {
+    public ResponseEntity<AckDTO> deleteSchool(
+            @PathVariable Long schoolId,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
 
         if (schoolRepository.existsById(schoolId)) {
             schoolRepository.deleteById(schoolId);
