@@ -47,7 +47,7 @@ public class PsychologistController {
     @GetMapping(GET_TEST_RESULTS)
     public ResponseEntity<List<TestUserDTO>> getTestResults(
             @PathVariable Long testId,
-            @RequestHeader String token) {
+            @RequestHeader(defaultValue = "") String token) {
 
         authenticationService.authenticate(token);
 
@@ -62,7 +62,7 @@ public class PsychologistController {
     public ResponseEntity<String> generateLinkForTest(
             @PathVariable Long classId,
             @PathVariable Long testId,
-            @RequestHeader String token) {
+            @RequestHeader(defaultValue = "") String token) {
 
         authenticationService.authenticate(token);
 
@@ -76,7 +76,7 @@ public class PsychologistController {
     @DeleteMapping(GET_USERS_BY_CLASS)
     public ResponseEntity<List<UserDTO>> getUsersByClass(
             @PathVariable Long classId,
-            @RequestHeader String token) {
+            @RequestHeader(defaultValue = "") String token) {
 
         authenticationService.authenticate(token);
 
