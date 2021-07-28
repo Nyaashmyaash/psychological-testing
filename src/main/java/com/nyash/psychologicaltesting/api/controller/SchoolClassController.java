@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -41,7 +38,7 @@ public class SchoolClassController {
     @GetMapping(FETCH_SCHOOL_CLASSES)
     public ResponseEntity<List<SchoolClassDTO>> fetchSchoolClasses(
             @PathVariable Long schoolId,
-            @PathVariable String prefix) {
+            @RequestParam(defaultValue = "") String prefix) {
 
         SchoolEntity school = getSchoolOrThrowNotFound(schoolId);
 
