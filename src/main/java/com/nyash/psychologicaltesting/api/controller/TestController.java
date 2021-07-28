@@ -7,6 +7,7 @@ import com.nyash.psychologicaltesting.api.dto.TestDTO;
 import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestDTOFactory;
+import com.nyash.psychologicaltesting.api.service.ControllerAuthenticationService;
 import com.nyash.psychologicaltesting.api.store.entities.*;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
@@ -39,6 +40,8 @@ public class TestController {
 
     TestDTOFactory testDTOFactory;
 
+    ControllerAuthenticationService authenticationService;
+
     public static final String FETCH_TESTS = "/api/tests";
     public static final String GET_TEST = "/api/tests/{testId}";
     public static final String CREATE_OR_UPDATE_TEST = "/api/tests";
@@ -69,7 +72,10 @@ public class TestController {
 
     @PostMapping(CREATE_OR_UPDATE_TEST)
     public ResponseEntity<TestDTO> createOrUpdateTest(
-            @RequestBody TestDTO test) {
+            @RequestBody TestDTO test,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
 
         TestEntity testEntity = convertTestToEntity(test);
 
@@ -80,7 +86,11 @@ public class TestController {
 
     @DeleteMapping(DELETE_TEST)
     public ResponseEntity<AckDTO> deleteTest(
-            @PathVariable Long testId) {
+            @PathVariable Long testId,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
+
         TestEntity test = testRepository
                 .findById(testId)
                 .orElse(null);
