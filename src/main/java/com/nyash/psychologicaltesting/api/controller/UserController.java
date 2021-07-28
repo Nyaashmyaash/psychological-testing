@@ -54,11 +54,11 @@ public class UserController {
 
     @PostMapping(CREATE_USER)
     public ResponseEntity<UserDTO> createUser(
-            @RequestParam Instant birthday,
+//            @RequestParam Instant birthday,
             @RequestParam String firstName,
             @RequestParam(defaultValue = "") String middleName,
             @RequestParam String lastName,
-            @RequestParam UserRole userRole,
+//            @RequestParam UserRole userRole,
             @PathVariable Long classId,
             @RequestHeader(defaultValue = "") String token) {
 
@@ -80,6 +80,18 @@ public class UserController {
                 .orElseThrow(() ->
                         new NotFoundException(String.format("Класс с идентификатором \"%s\" не найден", classId)));
 
+//        UserEntity user = userRepository.saveAndFlush(
+//                UserEntity.makeDefault(
+//                        firstName,
+//                        middleName,
+//                        lastName,
+//                        login,
+//                        password,
+//                        birthday,
+//                        userRole,
+//                        schoolClass
+//                )
+//        );
         UserEntity user = userRepository.saveAndFlush(
                 UserEntity.makeDefault(
                         firstName,
@@ -87,8 +99,8 @@ public class UserController {
                         lastName,
                         login,
                         password,
-                        birthday,
-                        userRole,
+                        Instant.now(),
+                        UserRole.STUDENT,
                         schoolClass
                 )
         );
