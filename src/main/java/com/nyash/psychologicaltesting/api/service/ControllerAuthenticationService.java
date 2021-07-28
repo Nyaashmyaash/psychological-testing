@@ -27,7 +27,7 @@ public class ControllerAuthenticationService {
                 );
 
         if (token.getExpiredAt().isBefore(Instant.now())) {
-            tokenRepository.deleteById(tokenStr);
+            throw new UnauthorizedException("Время сессии истекло, войдите в систему");
         }
     }
 }

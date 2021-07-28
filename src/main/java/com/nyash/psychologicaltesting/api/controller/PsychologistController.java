@@ -5,6 +5,7 @@ import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.TestUserDTOFactory;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
+import com.nyash.psychologicaltesting.api.service.ControllerAuthenticationService;
 import com.nyash.psychologicaltesting.api.store.entities.TestUserEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.*;
 import lombok.AccessLevel;
@@ -35,6 +36,8 @@ public class PsychologistController {
 
     SchoolClassRepository schoolClassRepository;
 
+    ControllerAuthenticationService authenticationService;
+
     public static final String GET_TEST_RESULTS = "/api/psychologists/tests/{testId}/results";
     public static final String GET_USERS_BY_CLASS = "/api/psychologists/schools/classes/{classId}";
     public static final String GENERATE_LINK_FOR_TEST = "/api/psychologists/schools/classes/{classId}/tests/{testId}/generate-link";
@@ -43,7 +46,10 @@ public class PsychologistController {
 
     @GetMapping(GET_TEST_RESULTS)
     public ResponseEntity<List<TestUserDTO>> getTestResults(
-            @PathVariable Long testId) {
+            @PathVariable Long testId,
+            @RequestHeader String token) {
+
+        authenticationService.authenticate(token);
 
         checkTestById(testId);
 
@@ -55,7 +61,10 @@ public class PsychologistController {
     @GetMapping(GENERATE_LINK_FOR_TEST)
     public ResponseEntity<String> generateLinkForTest(
             @PathVariable Long classId,
-            @PathVariable Long testId) {
+            @PathVariable Long testId,
+            @RequestHeader String token) {
+
+        authenticationService.authenticate(token);
 
         checkClassById(classId);
 
@@ -66,7 +75,10 @@ public class PsychologistController {
 
     @DeleteMapping(GET_USERS_BY_CLASS)
     public ResponseEntity<List<UserDTO>> getUsersByClass(
-            @PathVariable Long classId) {
+            @PathVariable Long classId,
+            @RequestHeader String token) {
+
+        authenticationService.authenticate(token);
 
         checkClassById(classId);
 
