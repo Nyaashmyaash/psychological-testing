@@ -9,6 +9,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Component
@@ -23,5 +25,9 @@ public class ControllerAuthenticationService {
                 .findById(tokenStr)
                 .orElseThrow(() -> new UnauthorizedException("Для выполнения этого действия необходимо войти в систему")
                 );
+
+        if (token.getExpiredAt().isBefore(Instant.now())) {
+            tokenRepository.deleteById(tokenStr);
+        }
     }
 }
