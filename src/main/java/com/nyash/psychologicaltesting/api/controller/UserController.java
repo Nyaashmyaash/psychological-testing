@@ -6,6 +6,7 @@ import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
 import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
+import com.nyash.psychologicaltesting.api.service.ControllerAuthenticationService;
 import com.nyash.psychologicaltesting.api.store.entities.SchoolClassEntity;
 import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
 import com.nyash.psychologicaltesting.api.store.repositories.SchoolClassRepository;
@@ -36,6 +37,8 @@ public class UserController {
 
     SchoolClassRepository schoolClassRepository;
 
+    ControllerAuthenticationService authenticationService;
+
     public static final String FETCH_USERS = "/api/schools/classes/users";
     public static final String FETCH_USERS_BY_CLASS = "/api/schools/classes/{classId}/users";
     public static final String CREATE_USER = "/api/schools/classes/{classId}/users";
@@ -56,7 +59,10 @@ public class UserController {
             @RequestParam(defaultValue = "") String middleName,
             @RequestParam String lastName,
             @RequestParam UserRole userRole,
-            @PathVariable Long classId) {
+            @PathVariable Long classId,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
 
         firstName = firstName.trim();
         lastName = lastName.trim();
@@ -91,7 +97,11 @@ public class UserController {
     }
 
     @GetMapping(FETCH_USERS)
-    public ResponseEntity<List<UserDTO>> fetchUsers(@RequestParam(defaultValue = "") String filter) {
+    public ResponseEntity<List<UserDTO>> fetchUsers(
+            @RequestParam(defaultValue = "") String filter,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
 
         boolean isFiltered = !filter.trim().isEmpty();
 
@@ -103,7 +113,10 @@ public class UserController {
     @GetMapping(FETCH_USERS_BY_CLASS)
     public ResponseEntity<List<UserDTO>> fetchUsersByClass (
             @RequestParam(defaultValue = "") String filter,
-            @PathVariable Long classId) {
+            @PathVariable Long classId,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
 
         boolean isFiltered = !filter.trim().isEmpty();
 
@@ -113,7 +126,11 @@ public class UserController {
     }
 
     @DeleteMapping(DELETE_USER)
-    public ResponseEntity<AckDTO> deleteUser(@PathVariable Long userId) {
+    public ResponseEntity<AckDTO> deleteUser(
+            @PathVariable Long userId,
+            @RequestHeader(defaultValue = "") String token) {
+
+        authenticationService.authenticate(token);
 
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
