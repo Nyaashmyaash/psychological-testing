@@ -58,7 +58,7 @@ public class UserController {
             @RequestParam String firstName,
             @RequestParam(defaultValue = "") String middleName,
             @RequestParam String lastName,
-//            @RequestParam UserRole userRole,
+            @RequestParam UserRole userRole,
             @PathVariable Long classId,
             @RequestHeader(defaultValue = "") String token) {
 
@@ -100,7 +100,7 @@ public class UserController {
                         login,
                         password,
                         Instant.now(),
-                        UserRole.STUDENT,
+                        userRole,
                         schoolClass
                 )
         );
