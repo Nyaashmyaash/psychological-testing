@@ -1,5 +1,6 @@
 package com.nyash.psychologicaltesting.api.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nyash.psychologicaltesting.api.domains.UserRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -31,6 +32,7 @@ public class UserEntity {
     @Column(name = "middle_name")
     String middleName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     @NonNull
     @Column(name = "birthday")
     Instant birthday;
