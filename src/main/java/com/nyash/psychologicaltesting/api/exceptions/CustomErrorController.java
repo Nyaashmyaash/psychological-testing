@@ -1,7 +1,7 @@
 package com.nyash.psychologicaltesting.api.exceptions;
 
+import com.nyash.psychologicaltesting.api.dto.ErrorDTO;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;

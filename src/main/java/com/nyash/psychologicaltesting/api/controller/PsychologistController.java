@@ -73,7 +73,7 @@ public class PsychologistController {
         return ResponseEntity.ok(String.format(LINK_TEMPLATE, testId, classId));
     }
 
-    @DeleteMapping(GET_USERS_BY_CLASS)
+    @GetMapping(GET_USERS_BY_CLASS)
     public ResponseEntity<List<UserDTO>> getUsersByClass(
             @PathVariable Long classId,
             @RequestHeader(defaultValue = "") String token) {
