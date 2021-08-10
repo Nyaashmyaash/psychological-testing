@@ -1,6 +1,6 @@
-package com.nyash.psychologicaltesting.api.store.repositories;
+package com.nyash.psychologicaltesting.api.store.repository;
 
-import com.nyash.psychologicaltesting.api.store.entities.TokenEntity;
+import com.nyash.psychologicaltesting.api.store.entity.TokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.Instant;

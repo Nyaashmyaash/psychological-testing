@@ -1,6 +1,6 @@
-package com.nyash.psychologicaltesting.api.store.repositories;
+package com.nyash.psychologicaltesting.api.store.repository;
 
-import com.nyash.psychologicaltesting.api.store.entities.PsychologistEntity;
+import com.nyash.psychologicaltesting.api.store.entity.PsychologistEntity;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 

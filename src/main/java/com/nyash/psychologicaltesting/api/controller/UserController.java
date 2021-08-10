@@ -1,17 +1,17 @@
 package com.nyash.psychologicaltesting.api.controller;
 
 import com.ibm.icu.text.Transliterator;
-import com.nyash.psychologicaltesting.api.domains.UserRole;
+import com.nyash.psychologicaltesting.api.domain.UserRole;
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.UserDTO;
-import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
+import com.nyash.psychologicaltesting.api.exception.NotFoundException;
 import com.nyash.psychologicaltesting.api.factory.UserDTOFactory;
 import com.nyash.psychologicaltesting.api.service.ControllerAuthenticationService;
-import com.nyash.psychologicaltesting.api.store.entities.SchoolClassEntity;
-import com.nyash.psychologicaltesting.api.store.entities.UserEntity;
-import com.nyash.psychologicaltesting.api.store.repositories.SchoolClassRepository;
-import com.nyash.psychologicaltesting.api.store.repositories.UserRepository;
-import com.nyash.psychologicaltesting.api.utils.StringChecker;
+import com.nyash.psychologicaltesting.api.store.entity.SchoolClassEntity;
+import com.nyash.psychologicaltesting.api.store.entity.UserEntity;
+import com.nyash.psychologicaltesting.api.store.repository.SchoolClassRepository;
+import com.nyash.psychologicaltesting.api.store.repository.UserRepository;
+import com.nyash.psychologicaltesting.api.util.StringChecker;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;

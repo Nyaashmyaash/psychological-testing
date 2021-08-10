@@ -1,6 +1,6 @@
-package com.nyash.psychologicaltesting.api.utils;
+package com.nyash.psychologicaltesting.api.util;
 
-import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
+import com.nyash.psychologicaltesting.api.exception.BadRequestException;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 

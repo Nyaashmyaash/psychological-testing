@@ -1,4 +1,4 @@
-package com.nyash.psychologicaltesting.api.domains;
+package com.nyash.psychologicaltesting.api.domain;
 
 public enum UserRole {
     STUDENT,

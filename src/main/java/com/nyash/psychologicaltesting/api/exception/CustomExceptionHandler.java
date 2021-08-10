@@ -1,4 +1,4 @@
-package com.nyash.psychologicaltesting.api.exceptions;
+package com.nyash.psychologicaltesting.api.exception;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;

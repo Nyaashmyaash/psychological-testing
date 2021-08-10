@@ -1,6 +1,6 @@
 package com.nyash.psychologicaltesting.api.dto;
 
-import com.nyash.psychologicaltesting.api.domains.UserRole;
+import com.nyash.psychologicaltesting.api.domain.UserRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

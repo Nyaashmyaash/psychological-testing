@@ -2,11 +2,11 @@ package com.nyash.psychologicaltesting.api.controller;
 
 import com.nyash.psychologicaltesting.api.dto.AckDTO;
 import com.nyash.psychologicaltesting.api.dto.SchoolDTO;
-import com.nyash.psychologicaltesting.api.exceptions.BadRequestException;
+import com.nyash.psychologicaltesting.api.exception.BadRequestException;
 import com.nyash.psychologicaltesting.api.factory.SchoolDTOFactory;
 import com.nyash.psychologicaltesting.api.service.ControllerAuthenticationService;
-import com.nyash.psychologicaltesting.api.store.entities.SchoolEntity;
-import com.nyash.psychologicaltesting.api.store.repositories.SchoolRepository;
+import com.nyash.psychologicaltesting.api.store.entity.SchoolEntity;
+import com.nyash.psychologicaltesting.api.store.repository.SchoolRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

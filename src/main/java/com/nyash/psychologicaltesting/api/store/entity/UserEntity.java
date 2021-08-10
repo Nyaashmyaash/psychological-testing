@@ -1,7 +1,7 @@
-package com.nyash.psychologicaltesting.api.store.entities;
+package com.nyash.psychologicaltesting.api.store.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nyash.psychologicaltesting.api.domains.UserRole;
+import com.nyash.psychologicaltesting.api.domain.UserRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

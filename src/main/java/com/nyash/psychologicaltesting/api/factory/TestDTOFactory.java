@@ -1,9 +1,9 @@
 package com.nyash.psychologicaltesting.api.factory;
 
 import com.nyash.psychologicaltesting.api.dto.*;
-import com.nyash.psychologicaltesting.api.store.entities.AnswerEntity;
-import com.nyash.psychologicaltesting.api.store.entities.QuestionEntity;
-import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
+import com.nyash.psychologicaltesting.api.store.entity.AnswerEntity;
+import com.nyash.psychologicaltesting.api.store.entity.QuestionEntity;
+import com.nyash.psychologicaltesting.api.store.entity.TestEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

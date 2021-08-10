@@ -1,4 +1,4 @@
-package com.nyash.psychologicaltesting.api.exceptions;
+package com.nyash.psychologicaltesting.api.exception;
 
 import com.nyash.psychologicaltesting.api.dto.ErrorDTO;
 import lombok.RequiredArgsConstructor;

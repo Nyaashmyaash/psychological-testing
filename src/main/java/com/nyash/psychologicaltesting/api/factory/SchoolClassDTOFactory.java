@@ -1,7 +1,7 @@
 package com.nyash.psychologicaltesting.api.factory;
 
 import com.nyash.psychologicaltesting.api.dto.SchoolClassDTO;
-import com.nyash.psychologicaltesting.api.store.entities.SchoolClassEntity;
+import com.nyash.psychologicaltesting.api.store.entity.SchoolClassEntity;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

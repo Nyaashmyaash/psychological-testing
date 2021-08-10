@@ -1,4 +1,4 @@
-package com.nyash.psychologicaltesting.api.store.entities;
+package com.nyash.psychologicaltesting.api.store.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

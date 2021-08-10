@@ -1,8 +1,8 @@
 package com.nyash.psychologicaltesting.api.service;
 
-import com.nyash.psychologicaltesting.api.exceptions.UnauthorizedException;
-import com.nyash.psychologicaltesting.api.store.entities.TokenEntity;
-import com.nyash.psychologicaltesting.api.store.repositories.TokenRepository;
+import com.nyash.psychologicaltesting.api.exception.UnauthorizedException;
+import com.nyash.psychologicaltesting.api.store.entity.TokenEntity;
+import com.nyash.psychologicaltesting.api.store.repository.TokenRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

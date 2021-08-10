@@ -1,6 +1,6 @@
-package com.nyash.psychologicaltesting.api.store.repositories;
+package com.nyash.psychologicaltesting.api.store.repository;
 
-import com.nyash.psychologicaltesting.api.store.entities.TestEntity;
+import com.nyash.psychologicaltesting.api.store.entity.TestEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

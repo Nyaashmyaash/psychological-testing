@@ -1,6 +1,6 @@
 package com.nyash.psychologicaltesting.api.service;
 
-import com.nyash.psychologicaltesting.api.store.repositories.TokenRepository;
+import com.nyash.psychologicaltesting.api.store.repository.TokenRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -1,10 +1,12 @@
-package com.nyash.psychologicaltesting.api.store.entities;
+package com.nyash.psychologicaltesting.api.store.entity;
+
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -12,29 +14,25 @@ import javax.persistence.*;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "school_class")
-public class SchoolClassEntity {
+@Table(name = "school")
+public class SchoolEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @NonNull
     @Column(name = "name")
+    @NonNull
     String name;
 
-    @NonNull
-    @ManyToOne
+    @Builder.Default
+    @OneToMany
     @JoinColumn(name = "school_id", referencedColumnName = "id")
-    SchoolEntity school;
+    List<SchoolClassEntity> schoolClasses = new ArrayList<>();
 
-    @Column(name = "school_id", updatable = false, insertable = false)
-    Long schoolId;
-
-    public static SchoolClassEntity makeDefault(String name, SchoolEntity school) {
+    public static SchoolEntity makeDefault(String schoolName) {
         return builder()
-                .name(name)
-                .school(school)
+                .name(schoolName)
                 .build();
     }
 }

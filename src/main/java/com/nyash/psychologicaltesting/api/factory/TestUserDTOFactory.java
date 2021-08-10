@@ -1,7 +1,7 @@
 package com.nyash.psychologicaltesting.api.factory;
 
 import com.nyash.psychologicaltesting.api.dto.TestUserDTO;
-import com.nyash.psychologicaltesting.api.store.entities.TestUserEntity;
+import com.nyash.psychologicaltesting.api.store.entity.TestUserEntity;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

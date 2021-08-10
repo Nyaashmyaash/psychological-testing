@@ -1,9 +1,9 @@
 package com.nyash.psychologicaltesting.api.controller;
 
-import com.nyash.psychologicaltesting.api.exceptions.NotFoundException;
-import com.nyash.psychologicaltesting.api.store.entities.TokenEntity;
-import com.nyash.psychologicaltesting.api.store.repositories.PsychologistRepository;
-import com.nyash.psychologicaltesting.api.store.repositories.TokenRepository;
+import com.nyash.psychologicaltesting.api.exception.NotFoundException;
+import com.nyash.psychologicaltesting.api.store.entity.TokenEntity;
+import com.nyash.psychologicaltesting.api.store.repository.PsychologistRepository;
+import com.nyash.psychologicaltesting.api.store.repository.TokenRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
