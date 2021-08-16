@@ -7,7 +7,8 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 
-@Data
+@Setter
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

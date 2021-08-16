@@ -19,7 +19,6 @@ public class CustomErrorController implements ErrorController {
 
     private final ErrorAttributes errorAttributes;
 
-
     public String getErrorPath() {
         return PATH;
     }

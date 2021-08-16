@@ -137,7 +137,6 @@ public class UserController {
         }
 
         return ResponseEntity.ok(AckDTO.makeDefault(true));
-
     }
 
     @GetMapping(GET_USER_ID_BY_LOGIN_AND_PASSWORD)

@@ -8,7 +8,8 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import java.time.Instant;
 
-@Data
+@Setter
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
